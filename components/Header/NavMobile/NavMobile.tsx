@@ -15,15 +15,9 @@ export default function NavMobile() {
       className="group tablet:hidden py-3 cursor-pointer"
     >
       {menuIsOpen ? (
-        <IconBack
-          size={20}
-          className="group-hover:fill-blue-400/88 transition-colors duration-300"
-        />
+        <IconBack className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20" />
       ) : (
-        <IconMenu
-          size={20}
-          className="group-hover:fill-blue-400/88 transition-colors duration-300"
-        />
+        <IconMenu className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20" />
       )}
     </button>
   );

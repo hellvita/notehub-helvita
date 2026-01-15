@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NavMobile from "./NavMobile/NavMobile";
 
 export default function Header() {
   return (
@@ -11,8 +12,10 @@ export default function Header() {
         >
           NoteHub
         </Link>
-        <nav aria-label="Main Navigation">
-          <ul className="flex gap-x-4">
+
+        <nav aria-label="Main Navigation" className="flex items-center">
+          <NavMobile />
+          <ul className="hidden tablet:flex gap-x-4">
             <li>
               <Link href="/">Home</Link>
             </li>

@@ -7,6 +7,18 @@
   --breakpoint-tablet-big: 1133px;
   --breakpoint-desktop: 1440px;
 
+  --text-*: initial;
+  --text-s18: 18px;
+  --text-s20: 20px;
+  --text-s24: 24px;
+  --text-s28: 28px;
+  --text-s32: 32px;
+  --text-s60: 60px;
+  --text-s100: 100px;
+  --text-s104: 104px;
+  --text-s160: 160px;
+  --text-s200: 200px;
+
   --color-*: initial;
   --color-white-400: #bdbdbd;
   --color-white-950: #fff;

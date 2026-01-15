@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 @theme {
+  --breakpoint-*: initial;
+  --breakpoint-mobile: 360px;
+  --breakpoint-tablet: 700px;
+  --breakpoint-tablet-big: 1133px;
+  --breakpoint-desktop: 1440px;
+
   --color-*: initial;
   --color-white-400: #bdbdbd;
   --color-white-950: #fff;

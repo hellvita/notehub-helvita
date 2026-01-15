@@ -25,6 +25,8 @@
 
   --color-white-400: #bdbdbd;
   --color-white-950: #fff;
+  /* better without shadow */
+  --text-shadow-logo: 0 0 4px --alpha(var(--color-white-950) / 60%);
 
   --color-black-800: #181818;
   --color-black-900: #131313;
@@ -32,6 +34,8 @@
 
   --color-blue-400: #b8e1ee;
   --color-blue-400-12: --alpha(var(--color-blue-400) / 12%);
+
+  --color-pink-400: #e6b8ee;
 }
 
 body {

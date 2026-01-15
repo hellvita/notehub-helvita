@@ -8,6 +8,8 @@
   --breakpoint-desktop: 1440px;
 
   --text-*: initial;
+  --text-s8: 8px;
+  --text-s16: 16px;
   --text-s18: 18px;
   --text-s20: 20px;
   --text-s24: 24px;

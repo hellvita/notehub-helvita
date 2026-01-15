@@ -1,9 +1,9 @@
 export default function Footer() {
   return (
-    <footer className="bg-black-900 py-4 text-center text-white-400 leading-8">
-      <div className="my-0 mx-auto min-w-80 flex flex-col gap-y-5 px-5 tablet-big:px-10">
+    <footer className="bg-black-900 py-4 tablet-big:py-9 text-center text-white-400 tablet-big:text-s20">
+      <div className="my-0 mx-auto min-w-80 flex flex-col gap-y-5 px-5 tablet-big:px-10 tablet-big:flex-row tablet-big:justify-between tablet-big:items-end">
         <p>© 2025 NoteHub. All rights reserved.</p>
-        <div className="flex flex-col gap-y-5">
+        <div className="flex flex-col gap-y-5 tablet-big:text-right">
           <p>Developer: Olha Sereda</p>
           <p>
             Contact us:&#160;

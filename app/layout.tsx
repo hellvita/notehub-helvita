@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} text-white-950 flex flex-col min-h-screen`}
+        className={`${roboto.variable} text-white-950 flex flex-col min-h-screen leading-8`}
       >
         <Header />
 

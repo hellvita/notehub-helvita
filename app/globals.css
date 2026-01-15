@@ -32,6 +32,10 @@
   --color-black-900: #131313;
   --color-black-950: #000;
 
+  --color-yellow-500: #dee18d;
+
+  --color-green-200: #c1e7bf;
+
   --color-blue-400: #b8e1ee;
   --color-blue-400-12: --alpha(var(--color-blue-400) / 12%);
 

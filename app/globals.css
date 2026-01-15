@@ -22,11 +22,16 @@
   --text-s200: 200px;
 
   --color-*: initial;
+
   --color-white-400: #bdbdbd;
   --color-white-950: #fff;
+
   --color-black-800: #181818;
   --color-black-900: #131313;
   --color-black-950: #000;
+
+  --color-blue-400: #b8e1ee;
+  --color-blue-400-12: --alpha(var(--color-blue-400) / 12%);
 }
 
 body {

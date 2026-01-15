@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Header from "@/components/Header/Header";
+import Footer from "@/components/Footer/Footer";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 
@@ -37,7 +39,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.variable}`}>{children}</body>
+      <body
+        className={`${roboto.variable} text-white-950 flex flex-col min-h-screen`}
+      >
+        <Header />
+
+        <div className="grow">{children}</div>
+
+        <Footer />
+      </body>
     </html>
   );
 }

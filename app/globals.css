@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@theme {
+  --color-*: initial;
+  --color-white-400: #bdbdbd;
+  --color-white-950: #fff;
+  --color-black-800: #181818;
+  --color-black-900: #131313;
+  --color-black-950: #000;
+}
+
 body {
   font-family: var(--font-roboto), sans-serif;
 }

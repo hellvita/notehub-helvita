@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import ButtonText from "@/components/parts/ButtonText/ButtonText";
 
 export default function NavMenuAuth() {
   return (
@@ -13,8 +16,10 @@ export default function NavMenuAuth() {
         </Link>
       </li>
       <li>
-        <p>user@mail.com</p>
-        <button>Logout</button>
+        <p className="font-light">user@mail.com</p>
+      </li>
+      <li>
+        <ButtonText text="Logout" handler={() => {}} />
       </li>
     </>
   );

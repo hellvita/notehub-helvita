@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} text-white-950 text-s12 mobile:text-s16 leading-4 mobile:leading-8 flex flex-col min-h-screen `}
+        className={`${roboto.variable} antialiased text-white-950 text-s12 mobile:text-s16 leading-4 mobile:leading-8 flex flex-col min-h-screen `}
       >
         <Header />
 

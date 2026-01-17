@@ -2,15 +2,15 @@ import IconNotes from "../IconNotes/IconNotes";
 
 export default function Hero() {
   return (
-    <div className="relative">
+    <div className="relative mb-5 mobile:mb-25 tablet:mb-19 tablet-big:mb-24 desktop:mb-0">
       <h1 className="relative flex flex-col gap-1 mobile:gap-y-51 text-center font-bold mobile:text-s60 uppercase">
         <span>Welcome</span>
-        <span className="mobile:absolute top-[40%] left-[35%] mobile:-rotate-13 italic font-extralight mobile:text-s100 lowercase mobile:text-purple-800 z-20">
+        <span className="mobile:absolute top-[40%] left-[35%] mobile:-rotate-13 italic font-extralight mobile:text-s100 lowercase mobile:text-purple-800 selection:bg-white-950/90 z-20">
           to
         </span>
         <span>Notehub</span>
       </h1>
-      <div className="hidden mobile:block absolute top-[10%] left-[10%] z-10">
+      <div className="hidden mobile:block absolute top-[10%] left-[10%] z-10 pointer-events-none">
         <IconNotes screenSize="mobile" />
       </div>
     </div>

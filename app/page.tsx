@@ -1,5 +1,5 @@
 import Hero from "@/components/Home/Hero/Hero";
-import AboutDesktop from "@/components/Header/AboutDesktop/AboutDesktop";
+import AboutDesktop from "@/components/Home/AboutDesktop/AboutDesktop";
 import About from "@/components/Header/About/About";
 
 export default function Home() {

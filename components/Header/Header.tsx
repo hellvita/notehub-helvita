@@ -9,7 +9,7 @@ export default function Header() {
         <Link
           href="/"
           aria-label="Home"
-          className="mr-4 mobile:text-s24 py-2 hover:text-pink-400/60 transition-colors duration-300"
+          className="mr-4 mobile:text-s24 py-2 hover:text-pink-400/60 focus:text-pink-400/60 transition-colors duration-300"
         >
           NoteHub
         </Link>
@@ -20,7 +20,7 @@ export default function Header() {
             <li>
               <Link
                 href="/"
-                className="py-3 hover:text-pink-400 transition-colors duration-300"
+                className="py-3 hover:text-pink-400 focus:text-pink-400 transition-colors duration-300"
               >
                 Home
               </Link>
@@ -28,7 +28,7 @@ export default function Header() {
             <li>
               <Link
                 href="/"
-                className="py-3 hover:text-blue-400 transition-colors duration-300"
+                className="py-3 hover:text-blue-400 focus:text-blue-400 transition-colors duration-300"
               >
                 Notes
               </Link>

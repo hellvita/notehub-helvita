@@ -9,7 +9,7 @@ export default function Footer() {
             Contact us:&#160;
             <a
               href="mailto:olhasereda1443@gmail.com"
-              className="hover:text-white-950 hover:underline transition-colors duration-300"
+              className="hover:text-white-950 hover:underline focus:text-white-950 focus:underline transition-colors duration-300"
             >
               olhasereda1443@gmail.com
             </a>

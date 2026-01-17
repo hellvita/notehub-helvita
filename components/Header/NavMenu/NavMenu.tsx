@@ -7,7 +7,7 @@ export default function NavMenu() {
         <Link
           href="/"
           prefetch={false}
-          className="py-3 hover:text-yellow-500 transition-colors duration-300"
+          className="py-3 hover:text-yellow-500 focus:text-yellow-500 transition-colors duration-300"
         >
           Login
         </Link>
@@ -17,7 +17,7 @@ export default function NavMenu() {
         <Link
           href="/"
           prefetch={false}
-          className="py-3 hover:text-green-200 transition-colors duration-300"
+          className="py-3 hover:text-green-200 focus:text-green-200 transition-colors duration-300"
         >
           Sign up
         </Link>

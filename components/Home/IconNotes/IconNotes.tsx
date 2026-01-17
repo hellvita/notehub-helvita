@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-type ScreenSize = "mobile" | "tablet" | "tablet-big" | "desktop";
+type ScreenSize = "mobile" | "tablet" | "desktop";
 interface IconNotesProps {
   screenSize: ScreenSize;
 }
@@ -9,14 +9,17 @@ interface ImageSize {
   width: {
     mobile: number;
     tablet: number;
-    "tablet-big": number;
     desktop: number;
   };
   height: {
     mobile: number;
     tablet: number;
-    "tablet-big": number;
     desktop: number;
+    css: {
+      mobile: string;
+      tablet: string;
+      desktop: string;
+    };
   };
 }
 
@@ -24,14 +27,17 @@ const IMAGE_SIZE: ImageSize = {
   width: {
     mobile: 242,
     tablet: 0,
-    "tablet-big": 0,
     desktop: 0,
   },
   height: {
     mobile: 221,
     tablet: 0,
-    "tablet-big": 0,
     desktop: 0,
+    css: {
+      mobile: "h-55.25",
+      tablet: "h-0",
+      desktop: "h-0",
+    },
   },
 };
 
@@ -44,6 +50,7 @@ export default function IconNotes({ screenSize }: IconNotesProps) {
       alt="a bunch of notes"
       width={IMAGE_SIZE.width[screenSize]}
       height={IMAGE_SIZE.height[screenSize]}
+      className={IMAGE_SIZE.height.css[screenSize]}
     />
   );
 }

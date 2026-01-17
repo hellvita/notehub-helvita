@@ -40,6 +40,8 @@
   --color-blue-400-12: --alpha(var(--color-blue-400) / 12%);
 
   --color-pink-400: #e6b8ee;
+
+  --color-purple-800: #4a154b;
 }
 
 body {

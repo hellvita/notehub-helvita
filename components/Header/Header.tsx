@@ -4,7 +4,7 @@ import AuthNavigation from "./AuthNavigation/AuthNavigation";
 
 export default function Header() {
   return (
-    <header className="bg-black-900 font-bold">
+    <header className="bg-black-900 font-bold selection:text-purple-800 selection:bg-pink-400">
       <div className="px-5 tablet-big:px-10 flex justify-between items-center">
         <Link
           href="/"

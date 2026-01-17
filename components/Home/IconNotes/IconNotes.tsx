@@ -1,3 +1,6 @@
+"use client";
+
+import { useWindowWidth } from "@/hooks/useWindowWidth";
 import Image from "next/image";
 
 type ScreenSize = "mobile" | "tablet" | "desktop";
@@ -41,8 +44,19 @@ const IMAGE_SIZE: ImageSize = {
   },
 };
 
-export default function IconNotes({ screenSize }: IconNotesProps) {
+export default function IconNotes() {
+  const width = useWindowWidth();
+
+  let screenSize: ScreenSize = "mobile";
   const imageSrc = `/notes-${screenSize}.svg`;
+
+  if (width >= 1133) {
+    screenSize = "desktop";
+  } else if (width >= 700) {
+    screenSize = "tablet";
+  } else {
+    screenSize = "mobile";
+  }
 
   return (
     <Image
@@ -50,6 +64,7 @@ export default function IconNotes({ screenSize }: IconNotesProps) {
       alt="a bunch of notes"
       width={IMAGE_SIZE.width[screenSize]}
       height={IMAGE_SIZE.height[screenSize]}
+      loading="eager"
       className={`${IMAGE_SIZE.height.css[screenSize]} max-w-none`}
     />
   );

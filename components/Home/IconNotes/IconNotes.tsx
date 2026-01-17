@@ -27,16 +27,16 @@ const IMAGE_SIZE: ImageSize = {
   width: {
     mobile: 242,
     tablet: 381,
-    desktop: 0,
+    desktop: 526,
   },
   height: {
     mobile: 221,
     tablet: 348,
-    desktop: 0,
+    desktop: 480,
     css: {
       mobile: "h-55.25",
       tablet: "h-87",
-      desktop: "h-0",
+      desktop: "h-120",
     },
   },
 };
@@ -50,7 +50,7 @@ export default function IconNotes({ screenSize }: IconNotesProps) {
       alt="a bunch of notes"
       width={IMAGE_SIZE.width[screenSize]}
       height={IMAGE_SIZE.height[screenSize]}
-      className={IMAGE_SIZE.height.css[screenSize]}
+      className={`${IMAGE_SIZE.height.css[screenSize]} max-w-none`}
     />
   );
 }

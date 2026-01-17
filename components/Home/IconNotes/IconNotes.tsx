@@ -4,9 +4,6 @@ import { useWindowWidth } from "@/hooks/useWindowWidth";
 import Image from "next/image";
 
 type ScreenSize = "mobile" | "tablet" | "desktop";
-interface IconNotesProps {
-  screenSize: ScreenSize;
-}
 
 interface ImageSize {
   width: {

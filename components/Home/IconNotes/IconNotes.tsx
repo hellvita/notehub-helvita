@@ -26,16 +26,16 @@ interface ImageSize {
 const IMAGE_SIZE: ImageSize = {
   width: {
     mobile: 242,
-    tablet: 0,
+    tablet: 381,
     desktop: 0,
   },
   height: {
     mobile: 221,
-    tablet: 0,
+    tablet: 348,
     desktop: 0,
     css: {
       mobile: "h-55.25",
-      tablet: "h-0",
+      tablet: "h-87",
       desktop: "h-0",
     },
   },

@@ -1,3 +1,5 @@
+import MailLink from "./MailLink";
+
 export default function Footer() {
   return (
     <footer className="bg-black-900 py-4 tablet-big:py-9 text-center text-white-400 tablet-big:text-s20 selection:text-blue-400 selection:bg-blue-400-12">
@@ -7,12 +9,7 @@ export default function Footer() {
           <p>Developer: Olha Sereda</p>
           <p>
             Contact us:&#160;
-            <a
-              href="mailto:olhasereda1443@gmail.com"
-              className="hover:text-white-950 hover:underline focus:text-white-950 focus:underline transition-colors duration-300"
-            >
-              olhasereda1443@gmail.com
-            </a>
+            <MailLink mail="olhasereda1443@gmail.com" />
           </p>
         </div>
       </div>

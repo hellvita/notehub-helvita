@@ -1,26 +1,26 @@
-import Link from "next/link";
+import LinkAnim from "@/components/parts/LinkAnim/LinkAnim";
 
 export default function NavMenu() {
   return (
     <>
       <li>
-        <Link
+        <LinkAnim
           href="/"
+          text="Login"
           prefetch={false}
-          className="py-3 hover:text-yellow-500 focus:text-yellow-500 transition-colors duration-300"
-        >
-          Login
-        </Link>
+          colorHover="var(--color-yellow-500)"
+          twStyles="py-3"
+        />
       </li>
 
       <li>
-        <Link
+        <LinkAnim
           href="/"
+          text="Sign up"
           prefetch={false}
-          className="py-3 hover:text-green-200 focus:text-green-200 transition-colors duration-300"
-        >
-          Sign up
-        </Link>
+          colorHover="var(--color-green-200)"
+          twStyles="py-3"
+        />
       </li>
     </>
   );

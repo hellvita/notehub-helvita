@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
+import LinkAnim from "@/components/parts/LinkAnim/LinkAnim";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 
 export default function NavMenuAuth() {
   return (
     <>
       <li>
-        <Link
+        <LinkAnim
           href="/"
+          text="Profile"
           prefetch={false}
-          className="py-3 hover:text-yellow-500 focus:text-yellow-500 transition-colors duration-300"
-        >
-          Profile
-        </Link>
+          colorHover="var(--color-yellow-500)"
+          twStyles="py-3"
+        />
       </li>
       <li>
         <p className="font-light">user@mail.com</p>

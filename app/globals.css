@@ -2,7 +2,7 @@
 
 @theme {
   --breakpoint-*: initial;
-  --breakpoint-mobile: 360px;
+  --breakpoint-mobile: 320px;
   --breakpoint-tablet: 700px;
   --breakpoint-tablet-big: 1133px;
   --breakpoint-desktop: 1440px;

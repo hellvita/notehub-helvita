@@ -1,4 +1,4 @@
-import MailLink from "./MailLink";
+import MailLink from "../parts/MailLink/MailLink";
 
 export default function Footer() {
   return (
@@ -9,7 +9,11 @@ export default function Footer() {
           <p>Developer: Olha Sereda</p>
           <p>
             Contact us:&#160;
-            <MailLink mail="olhasereda1443@gmail.com" />
+            <MailLink
+              mail="olhasereda1443@gmail.com"
+              colorHover="var(--color-white-950)"
+              decorationHover="underline"
+            />
           </p>
         </div>
       </div>

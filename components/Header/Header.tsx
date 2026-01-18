@@ -1,5 +1,5 @@
 import LinkAnim from "../parts/LinkAnim/LinkAnim";
-import NavMobile from "./NavMobile/NavMobile";
+import HeaderClient from "./Header.client";
 import AuthNavigation from "./AuthNavigation/AuthNavigation";
 
 export default function Header() {
@@ -16,7 +16,6 @@ export default function Header() {
         />
 
         <nav aria-label="Main Navigation" className="flex items-center">
-          <NavMobile />
           <ul className="hidden tablet:flex gap-x-4 text-s18">
             <li>
               <LinkAnim
@@ -34,8 +33,11 @@ export default function Header() {
                 twStyles="py-3"
               />
             </li>
+
             <AuthNavigation />
           </ul>
+
+          <HeaderClient />
         </nav>
       </div>
     </header>

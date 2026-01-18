@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header/Header";
+import ModalMobile from "@/components/ModalMobile/ModalMobile";
 import Footer from "@/components/Footer/Footer";
 import { Roboto } from "next/font/google";
 import "./globals.css";
@@ -40,8 +41,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} antialiased text-white-950 text-s12 mobile:text-s16 leading-4 mobile:leading-8 flex flex-col min-h-screen `}
+        className={`${roboto.variable} antialiased text-white-950 text-s12 mobile:text-s16 leading-4 mobile:leading-8 flex flex-col min-h-screen relative`}
       >
+        <ModalMobile />
         <Header />
 
         {children}

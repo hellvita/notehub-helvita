@@ -1,24 +1,21 @@
 import LinkAnim from "@/components/parts/LinkAnim/LinkAnim";
 
-export default function NavMenu() {
+export default function DefaultNavigation() {
   return (
     <>
       <li>
         <LinkAnim
           href="/"
-          text="Login"
-          prefetch={false}
-          colorHover="var(--color-yellow-500)"
+          text="Home"
+          colorHover="var(--color-pink-400)"
           twStyles="py-3 block tablet:inline"
         />
       </li>
-
       <li>
         <LinkAnim
           href="/"
-          text="Sign up"
-          prefetch={false}
-          colorHover="var(--color-green-200)"
+          text="Notes"
+          colorHover="var(--color-blue-400)"
           twStyles="py-3 block tablet:inline"
         />
       </li>

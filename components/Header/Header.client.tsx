@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useModalStore } from "@/lib/store/modalStore";
 import NavMobile from "./NavMobile/NavMobile";
 
 export default function HeaderClient() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { isOpen, setIsOpen } = useModalStore();
 
-  return (
-    <NavMobile isOpen={isOpen} onToggle={() => setIsOpen((prev) => !prev)} />
-  );
+  return <NavMobile isOpen={isOpen} onToggle={() => setIsOpen(!isOpen)} />;
 }

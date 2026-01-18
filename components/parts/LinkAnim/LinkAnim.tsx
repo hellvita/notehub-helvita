@@ -2,6 +2,8 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
+import { convertToRgba } from "@/lib/utils/colors";
 
 interface LinkAnimProps {
   href: string;
@@ -24,15 +26,36 @@ export default function LinkAnim({
   colorHover = "inherit",
   opacityHover = 1,
 }: LinkAnimProps) {
+  const width = useWindowWidth();
+
+  let bgColor: string = "rgba(0, 0, 0, 0)";
+  if (width >= 700) {
+    bgColor = "rgba(0, 0, 0, 0)";
+  } else {
+    bgColor = convertToRgba(colorHover, 0.08);
+  }
+
   return (
     <MotionLink
       href={href}
       aria-label={ariaLabel}
       prefetch={prefetch}
       className={twStyles}
-      whileHover={{ color: colorHover, opacity: opacityHover }}
-      whileFocus={{ color: colorHover, opacity: opacityHover }}
-      whileTap={{ color: colorHover, opacity: opacityHover }}
+      whileHover={{
+        color: colorHover,
+        opacity: opacityHover,
+        backgroundColor: bgColor,
+      }}
+      whileFocus={{
+        color: colorHover,
+        opacity: opacityHover,
+        backgroundColor: bgColor,
+      }}
+      whileTap={{
+        color: colorHover,
+        opacity: opacityHover,
+        backgroundColor: bgColor,
+      }}
       transition={{ duration: 0.3 }}
     >
       {text}

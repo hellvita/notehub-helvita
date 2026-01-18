@@ -1,6 +1,6 @@
 "use client";
 
-import { useWindowWidth } from "@/hooks/useWindowWidth";
+import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
 import Image from "next/image";
 
 type ScreenSize = "mobile" | "tablet" | "desktop";

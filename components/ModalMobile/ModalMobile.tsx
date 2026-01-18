@@ -1,6 +1,8 @@
 "use client";
 
 import MobileMenu from "../Header/MobileMenu/MobileMenu";
+import { motion, AnimatePresence } from "motion/react";
+import { useEffect } from "react";
 import { useModalStore } from "@/lib/store/modalStore";
 import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
 
@@ -11,11 +13,21 @@ export default function ModalMobile() {
 
   if (isOpen && width >= 700) setIsOpen(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isOpen]);
+
   return (
-    isOpen && (
-      <div>
-        <MobileMenu />
-      </div>
-    )
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div className="overflow-hidden z-30">
+          <MobileMenu />
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

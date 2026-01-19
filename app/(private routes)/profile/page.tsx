@@ -50,7 +50,7 @@ export default function ProfilePage() {
       <ButtonLink
         text="Edit"
         href="/profile/edit"
-        twStyles="p-3.5 min-w-0 my-0 mb-10 mx-auto block w-full text-yellow-500 text-center mobile:text-s20 font-medium border cursor-pointer tablet:hidden"
+        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full text-yellow-500 text-center mobile:text-s20 font-medium border cursor-pointer tablet:hidden"
         bgColorHover="var(--color-yellow-500)"
         borderColorHover="var(--color-yellow-500)"
       />

@@ -40,7 +40,7 @@ export default function LoginPage() {
         borderColorHover="var(--color-yellow-500)"
       />
 
-      <p className="text-white-400 text-center max-tablet:flex max-tablet:flex-col max-tablet:gap-1">
+      <p className="text-white-400 mobile:text-s16 tablet:text-s20 text-center max-tablet:flex max-tablet:flex-col max-tablet:gap-1">
         New to Notehub?&nbsp;
         <Link
           href="/sign-up"

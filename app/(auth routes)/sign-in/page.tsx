@@ -1,6 +1,6 @@
 "use client";
 
-import AuthForm from "@/components/Profile/Auth/AuthForm";
+import AuthForm from "@/components/Auth/AuthForm";
 import FormInput from "@/components/parts/FormInput/FormInput";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import Link from "next/link";

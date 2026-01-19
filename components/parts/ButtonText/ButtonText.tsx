@@ -10,6 +10,7 @@ interface ButtonTextProps {
   textColorHover?: string;
   bgColorHover?: string;
   borderColorHover?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 export default function ButtonText({
@@ -20,10 +21,12 @@ export default function ButtonText({
   textColorHover = "var(--color-black-900)",
   bgColorHover = "var(--color-green-200)",
   borderColorHover = "var(--color-green-200)",
+  type = "button",
 }: ButtonTextProps) {
   return (
     <motion.button
       onClick={handler}
+      type={type}
       className={`${twStyles} ${twStylesAdditional}`}
       whileHover={{
         color: textColorHover,

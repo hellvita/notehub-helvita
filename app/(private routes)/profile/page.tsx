@@ -27,22 +27,24 @@ export default function ProfilePage() {
         />
       </div>
 
-      <Image
-        src={getProfilePicture()}
-        alt="default profile picture"
-        width={140}
-        height={140}
-        className="mb-10 mx-auto tablet-big:mx-0 tablet-big:mb-0 tablet-big:mr-10 max-w-35 aspect-square"
-      />
-
-      <div className="flex flex-col gap-y-5 tablet:flex-row tablet:justify-between mb-13 tablet:mb-0">
-        <UserInfo label="Username" value="my-user-name" />
-        <UserInfo
-          label="Email"
-          value={normalizedEmail}
-          twStylesLabel="text-yellow-500 mobile:text-s24 tablet:max-tablet-big:text-right"
-          twStylesValue="mobile:text-s28 tablet:max-tablet-big:text-right"
+      <div className="flex flex-col gap-10 items-center tablet-big:flex-row">
+        <Image
+          src={getProfilePicture()}
+          alt="default profile picture"
+          width={140}
+          height={140}
+          className="max-w-35 aspect-square"
         />
+
+        <div className="w-full flex flex-col gap-y-5 tablet:max-tablet-big:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
+          <UserInfo label="Username" value="my-user-name" />
+          <UserInfo
+            label="Email"
+            value={normalizedEmail}
+            twStylesLabel="text-yellow-500 mobile:text-s24 tablet:max-tablet-big:text-right"
+            twStylesValue="mobile:text-s28 tablet:max-tablet-big:text-right"
+          />
+        </div>
       </div>
 
       <ButtonLink

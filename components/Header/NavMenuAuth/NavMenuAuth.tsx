@@ -16,7 +16,7 @@ export default function NavMenuAuth() {
     <>
       <li>
         <LinkAnim
-          href="/"
+          href="/profile"
           text="Profile"
           prefetch={false}
           colorHover="var(--color-yellow-500)"

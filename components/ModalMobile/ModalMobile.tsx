@@ -2,16 +2,22 @@
 
 import MobileMenu from "../Header/MobileMenu/MobileMenu";
 import { motion, AnimatePresence } from "motion/react";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useModalStore } from "@/lib/store/modalStore";
 import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
 
 export default function ModalMobile() {
   const width = useWindowWidth();
+  const pathname = usePathname();
 
   const { isOpen, setIsOpen } = useModalStore();
 
   if (isOpen && width >= 700) setIsOpen(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   useEffect(() => {
     if (isOpen) {

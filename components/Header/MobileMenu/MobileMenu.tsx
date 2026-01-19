@@ -5,8 +5,6 @@ import DefaultNavigation from "../DefaultNavigation/DefaultNavigation";
 import AuthNavigation from "../AuthNavigation/AuthNavigation";
 
 export default function MobileMenu() {
-  //-top-[100%] -right-[50%]
-
   return (
     <motion.div
       className="absolute w-full h-full bg-black-900 selection:text-purple-800 selection:bg-pink-400 top-12 right-0 z-30"

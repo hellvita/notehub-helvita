@@ -5,7 +5,7 @@ export default function NavMenu() {
     <>
       <li>
         <LinkAnim
-          href="/"
+          href="/sign-in"
           text="Login"
           prefetch={false}
           colorHover="var(--color-yellow-500)"
@@ -15,7 +15,7 @@ export default function NavMenu() {
 
       <li>
         <LinkAnim
-          href="/"
+          href="/sign-up"
           text="Sign up"
           prefetch={false}
           colorHover="var(--color-green-200)"

@@ -35,7 +35,7 @@ export default function RegisterPage() {
         type="submit"
         text="Register"
         handler={() => {}}
-        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full tablet-big:max-w-54 text-green-200 mobile:text-s20 tablet-big:text-s24 font-medium border cursor-pointer"
+        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full tablet:max-w-58 text-green-200 mobile:text-s20 tablet-big:text-s24 font-medium border cursor-pointer"
       />
     </AuthForm>
   );

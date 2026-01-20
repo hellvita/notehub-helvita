@@ -7,12 +7,14 @@ interface FormInputProps {
   id: string;
   type: string;
   name: string;
+  defaultValue?: string | number | readonly string[] | undefined;
   label?: string;
   required?: boolean;
   hint?: string;
   twStylesContainer?: string;
   twStylesLabel?: string;
   twStylesInput?: string;
+  onChange?: () => void;
 }
 
 export default function FormInput({
@@ -22,11 +24,13 @@ export default function FormInput({
   label,
   required = true,
   hint = "",
+  defaultValue = undefined,
   twStylesContainer = "flex flex-col gap-2",
-  twStylesLabel = "text-green-200 mobile:text-s16 tablet:text-s20",
+  twStylesLabel = "text-green-200 mobile:text-s16 tablet:text-s20 uppercase",
   twStylesInput = "py-3 px-4 outline-0 mobile:text-s18 tablet:text-s24 placeholder:font-light placeholder:text-white-400/50",
+  onChange = () => {},
 }: FormInputProps) {
-  const inputLabel = (label ? label : name).toUpperCase();
+  const inputLabel = label ? label : name;
 
   return (
     <div className={twStylesContainer}>
@@ -35,9 +39,11 @@ export default function FormInput({
       </label>
       <motion.input
         id={id}
+        defaultValue={defaultValue}
         type={type}
         name={name}
         required={required}
+        onChange={onChange}
         placeholder={hint}
         autoComplete="off"
         className={`${twStylesInput} bg-white-950/4`}

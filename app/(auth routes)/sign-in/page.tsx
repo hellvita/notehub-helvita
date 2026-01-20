@@ -19,7 +19,7 @@ export default function LoginPage() {
           type="email"
           name="email"
           hint="example@mail.com"
-          twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20"
+          twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20 uppercase"
         />
         <FormInput
           label="Password"
@@ -27,7 +27,7 @@ export default function LoginPage() {
           type="password"
           name="password"
           hint="Enter your password"
-          twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20"
+          twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20 uppercase"
         />
       </div>
 

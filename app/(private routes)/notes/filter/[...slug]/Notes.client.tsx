@@ -1,13 +1,23 @@
 import SearchBar from "@/components/Notes/SearchBar/SearchBar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
-import NoteCard from "@/components/Notes/Note/NoteCard"; // ?? change to NoteList component
-import { NoteTag } from "@/types/note";
+import NoteList from "@/components/Notes/NoteList/NoteList";
+import { NoteTag, Note } from "@/types/note";
 
 interface NotesClientProps {
   currentTag?: NoteTag;
 }
 
 export default function NotesClient({ currentTag }: NotesClientProps) {
+  const tempNote: Note = {
+    id: "note-temp",
+    title: "Team Meeting Notes",
+    content:
+      "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
+    tag: "Meeting",
+    createdAt: "00",
+    updatedAt: "00",
+  };
+
   return (
     <div>
       <div className="mb-5 flex items-center justify-center gap-x-7">
@@ -20,19 +30,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         />
       </div>
 
-      <div className="flex justify-center">
-        <NoteCard
-          note={{
-            id: "note-temp",
-            title: "Team Meeting Notes",
-            content:
-              "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
-            tag: "Meeting",
-            createdAt: "00",
-            updatedAt: "00",
-          }}
-        />
-      </div>
+      <NoteList notes={[tempNote, tempNote, tempNote, tempNote, tempNote]} />
     </div>
   );
 }

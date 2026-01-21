@@ -6,6 +6,7 @@
   --breakpoint-tablet: 700px;
   --breakpoint-tablet-big: 1133px;
   --breakpoint-desktop: 1440px;
+  --breakpoint-grid-sm: 412px;
 
   --text-*: initial;
   --text-s8: 8px;

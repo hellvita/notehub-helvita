@@ -11,7 +11,7 @@ interface NoteProps {
 
 export default function NoteCard({ note }: NoteProps) {
   return (
-    <div className="group/card relative w-full max-w-93 p-6 bg-black-800 selection:text-blue-400 selection:bg-blue-400-12">
+    <li className="group/card relative w-full max-w-93 p-6 bg-black-800 selection:text-blue-400 selection:bg-blue-400-12">
       <CloseButton />
       <h2 className="mobile:text-s20 font-medium leading-8 mb-3">
         {note.title}
@@ -29,6 +29,6 @@ export default function NoteCard({ note }: NoteProps) {
           <TagLabel tagName={note.tag} />
         </div>
       </div>
-    </div>
+    </li>
   );
 }

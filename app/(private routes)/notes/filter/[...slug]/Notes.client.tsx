@@ -21,7 +21,17 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
       </div>
 
       <div className="flex justify-center">
-        <NoteCard note={} />
+        <NoteCard
+          note={{
+            id: "note-temp",
+            title: "Team Meeting Notes",
+            content:
+              "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more t...",
+            tag: "Meeting",
+            createdAt: "00",
+            updatedAt: "00",
+          }}
+        />
       </div>
     </div>
   );

@@ -3,5 +3,5 @@
 import { motion } from "motion/react";
 
 export default function CloseButton() {
-  return <motion.button>X</motion.button>;
+  return <motion.button className="absolute right-3 top-3">X</motion.button>;
 }

@@ -1,6 +1,6 @@
 import SearchBar from "@/components/Notes/SearchBar/SearchBar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
-import Note from "@/components/Notes/Note/Note"; // ?? change to NoteList component
+import NoteCard from "@/components/Notes/Note/NoteCard"; // ?? change to NoteList component
 import { NoteTag } from "@/types/note";
 
 interface NotesClientProps {
@@ -20,7 +20,9 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         />
       </div>
 
-      <Note />
+      <div className="flex justify-center">
+        <NoteCard />
+      </div>
     </div>
   );
 }

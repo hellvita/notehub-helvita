@@ -2,13 +2,20 @@ import CloseButton from "./CloseButton/CloseButton";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import TagLabel from "./TagLabel/TagLabel";
 import EditButton from "./EditButton/EditButton";
+import { Note } from "@/types/note";
 
-export default function Note() {
+interface NoteProps {
+  note: Note;
+}
+
+export default function NoteCard({ note }: NoteProps) {
+  // ** TODO sliceContent()
+
   return (
-    <div>
+    <div className="relative w-full max-w-93 p-6 bg-black-800">
       <CloseButton />
-      <h2>title</h2>
-      <p>description</p>
+      <h2>{note.title}</h2>
+      <p>{note.content}</p>
       <div>
         <div>
           <EditButton />

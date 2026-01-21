@@ -1,6 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import SearchBar from "@/components/Notes/SearchBar/SearchBar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import NoteList from "@/components/Notes/NoteList/NoteList";
+import Pagination from "@/components/Notes/Pagination/Pagination";
 import { NoteTag, Note } from "@/types/note";
 
 interface NotesClientProps {
@@ -8,6 +12,8 @@ interface NotesClientProps {
 }
 
 export default function NotesClient({ currentTag }: NotesClientProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+
   const tempNote: Note = {
     id: "note-temp",
     title: "Team Meeting Notes",
@@ -31,6 +37,12 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
       </div>
 
       <NoteList notes={[tempNote]} />
+
+      <Pagination
+        totalPages={5}
+        currentPage={1}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
   );
 }

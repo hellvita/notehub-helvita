@@ -21,7 +21,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
       </div>
 
       <div className="flex justify-center">
-        <NoteCard />
+        <NoteCard note={} />
       </div>
     </div>
   );

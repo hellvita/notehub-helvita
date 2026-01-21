@@ -5,6 +5,7 @@ import SearchBar from "@/components/Notes/SearchBar/SearchBar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import NoteList from "@/components/Notes/NoteList/NoteList";
 import Pagination from "@/components/Notes/Pagination/Pagination";
+import CreateButtonMobile from "@/components/Notes/CreateButtonMobile/CreateButtonMobile";
 import { NoteTag, Note } from "@/types/note";
 
 interface NotesClientProps {
@@ -25,7 +26,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className="mb-7 flex items-center justify-center gap-x-7">
         <SearchBar />
         <ButtonLink
@@ -43,6 +44,8 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         currentPage={1}
         setCurrentPage={setCurrentPage}
       />
+
+      <CreateButtonMobile />
     </div>
   );
 }

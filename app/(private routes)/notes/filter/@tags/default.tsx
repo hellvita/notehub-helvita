@@ -1,5 +1,5 @@
 import { TAG_TYPES } from "@/types/note";
-import NoteTag from "@/components/Notes/NoteTag/NoteTag";
+import NoteTag from "@/components/Notes/filterBar/NoteTag/NoteTag";
 
 export default function NotesTags() {
   //** */ TODO onClick (ul) => target(li).set(active=true)

@@ -1,5 +1,6 @@
 import SearchBar from "@/components/Notes/SearchBar/SearchBar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
+import Note from "@/components/Notes/Note/Note"; // ?? change to NoteList component
 import { NoteTag } from "@/types/note";
 
 interface NotesClientProps {
@@ -19,7 +20,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         />
       </div>
 
-      <p>Notes</p>
+      <Note />
     </div>
   );
 }

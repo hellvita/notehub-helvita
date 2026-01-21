@@ -13,7 +13,7 @@ export default function DefaultNavigation() {
       </li>
       <li>
         <LinkAnim
-          href="/"
+          href="/notes/filter/all"
           text="Notes"
           colorHover="var(--color-blue-400)"
           twStyles="py-3 block tablet:inline"

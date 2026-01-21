@@ -21,6 +21,7 @@ export default function NoteTag({
         borderColor: "var(--color-pink-400)",
         backgroundColor: convertToRgba("var(--color-pink-400)", 0.1),
       };
+
   return (
     <motion.li
       key={key}

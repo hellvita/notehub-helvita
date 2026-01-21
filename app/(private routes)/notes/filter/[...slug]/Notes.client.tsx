@@ -20,7 +20,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
 
   return (
     <div>
-      <div className="mb-5 flex items-center justify-center gap-x-7">
+      <div className="mb-7 flex items-center justify-center gap-x-7">
         <SearchBar />
         <ButtonLink
           text="Create note +"
@@ -30,7 +30,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         />
       </div>
 
-      <NoteList notes={[tempNote, tempNote, tempNote, tempNote, tempNote]} />
+      <NoteList notes={[tempNote]} />
     </div>
   );
 }

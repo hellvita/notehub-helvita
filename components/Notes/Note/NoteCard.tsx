@@ -3,14 +3,13 @@ import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import TagLabel from "./TagLabel/TagLabel";
 import EditButton from "./EditButton/EditButton";
 import { Note } from "@/types/note";
+import { sliceContent } from "@/lib/utils/strings";
 
 interface NoteProps {
   note: Note;
 }
 
 export default function NoteCard({ note }: NoteProps) {
-  // ** TODO sliceContent()
-
   return (
     <div className="group/card relative w-full max-w-93 p-6 bg-black-800 selection:text-blue-400 selection:bg-blue-400-12">
       <CloseButton />
@@ -18,7 +17,7 @@ export default function NoteCard({ note }: NoteProps) {
         {note.title}
       </h2>
       <p className="mobile:text-s16 text-white-400 leading-5 mb-5">
-        {note.content}
+        {sliceContent(note.content)}
       </p>
       <div className="flex flex-col-reverse gap-y-5 tablet:flex-row tablet:gap-x-4 items-center">
         <ButtonLink

@@ -9,7 +9,7 @@ export default function ProfilePage() {
     long: "myVeryLongEmail123456789@mail.com",
   };
 
-  const normalizedEmail = normalizeEmail(testEmails.long, 16);
+  const normalizedEmail = normalizeEmail(testEmails.long);
 
   return (
     <div className="py-12 px-5 tablet:px-10 bg-black-800">

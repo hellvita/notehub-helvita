@@ -26,7 +26,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
             id: "note-temp",
             title: "Team Meeting Notes",
             content:
-              "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more t...",
+              "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
             tag: "Meeting",
             createdAt: "00",
             updatedAt: "00",

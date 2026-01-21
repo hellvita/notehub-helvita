@@ -10,7 +10,7 @@ export default function NavMenuAuth() {
     long: "myVeryLongEmail123456789@mail.com",
   };
 
-  const normalizedEmail = normalizeEmail(testEmails.long, 16);
+  const normalizedEmail = normalizeEmail(testEmails.long);
 
   return (
     <>

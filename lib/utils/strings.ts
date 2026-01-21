@@ -1,7 +1,8 @@
 import { getRandomInt } from "./numbers";
 
-export const normalizeEmail = (email: string, maxLength: number): string => {
-  const minLength = Math.max(maxLength, 12);
+export const normalizeEmail = (email: string): string => {
+  const MAX_LENGTH = 16;
+  const minLength = Math.max(MAX_LENGTH, 12);
 
   if (email.length <= minLength) {
     return email;
@@ -23,4 +24,14 @@ export const getProfilePicture = (): string => {
   const path = `/default-${number}.svg`;
 
   return path;
+};
+
+export const sliceContent = (text: string): string => {
+  const MAX_LENGTH = 127;
+
+  if (text.length <= MAX_LENGTH) {
+    return text;
+  }
+
+  return text.slice(0, MAX_LENGTH).trim() + "...";
 };

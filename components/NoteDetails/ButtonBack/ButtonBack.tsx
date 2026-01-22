@@ -18,7 +18,7 @@ export default function ButtonBack({ backPath }: ButtonBackProps) {
       className="group tablet-big:hidden p-1 cursor-pointer"
     >
       <IconBack
-        className="group-hover:fill-blue-400 transition-colors duration-300 mobile:text-s24"
+        className="group-hover:fill-blue-400 group-hover:scale-90 transition-colors duration-300 mobile:text-s24"
         aria-label="return back"
       />
     </button>

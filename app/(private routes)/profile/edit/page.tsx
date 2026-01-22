@@ -29,7 +29,10 @@ export default function EditProfilePage() {
             type="button"
             className="group p-3 cursor-pointer"
           >
-            <IconBack className="group-hover:fill-pink-400/88 transition-colors duration-300 text-s20 tablet:text-s28" />
+            <IconBack
+              className="group-hover:fill-pink-400/88 transition-colors duration-300 text-s20 tablet:text-s28"
+              aria-label="go back"
+            />
           </button>
           <h1 className="mobile:text-s32 tablet:text-s40 desktop:text-s56 font-medium">
             Edit Page

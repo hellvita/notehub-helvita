@@ -1,4 +1,4 @@
-import CloseButton from "./CloseButton/CloseButton";
+import DeleteButton from "./DeleteButton/DeleteButton";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import TagLabel from "./TagLabel/TagLabel";
 import EditButton from "./EditButton/EditButton";
@@ -12,7 +12,7 @@ interface NoteProps {
 export default function NoteCard({ note }: NoteProps) {
   return (
     <li className="group/card relative w-full max-w-93 p-6 bg-black-800 selection:text-blue-400 selection:bg-blue-400-12">
-      <CloseButton />
+      <DeleteButton />
       <h2 className="mobile:text-s20 font-medium leading-8 mb-3">
         {note.title}
       </h2>

@@ -15,9 +15,15 @@ export default function NavMobile({ isOpen, onToggle }: NavMobileProps) {
       className="group tablet:hidden ps-3 py-3 cursor-pointer"
     >
       {isOpen ? (
-        <IconBack className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20" />
+        <IconBack
+          className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20"
+          aria-label="close menu"
+        />
       ) : (
-        <IconMenu className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20" />
+        <IconMenu
+          className="group-hover:fill-blue-400/88 transition-colors duration-300 mobile:text-s20"
+          aria-label="open menu"
+        />
       )}
     </button>
   );

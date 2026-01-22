@@ -1,6 +1,7 @@
 import DeleteButton from "../../Notes/Note/DeleteButton/DeleteButton";
 import ButtonBack from "../ButtonBack/ButtonBack";
 import TagLabel from "@/components/Notes/Note/TagLabel/TagLabel";
+import EditTime from "../EditTime/EditTime";
 import EditButton from "@/components/Notes/Note/EditButton/EditButton";
 import { Note as TypeNote } from "@/types/note";
 
@@ -24,8 +25,9 @@ export default function Note({ note }: NoteProps) {
         {note.content}
       </p>
 
-      <div className="sticky bottom-0 flex justify-between items-center flex-wrap bg-linear-to-b from-black-800/0 via-black-800/97 to-black-800 pt-5 pb-6">
+      <div className="sticky bottom-0 flex justify-between items-center flex-wrap gap-y-2 bg-linear-to-b from-black-800/0 via-black-800/97 to-black-800 pt-5 pb-6">
         <TagLabel tagName={note.tag} />
+        <EditTime dataTime={note.updatedAt ? note.updatedAt : note.createdAt} />
         <EditButton />
       </div>
     </div>

@@ -35,3 +35,28 @@ export const sliceContent = (text: string): string => {
 
   return text.slice(0, MAX_LENGTH).trim() + "...";
 };
+
+export interface FormattedData {
+  time: string;
+  data: string;
+}
+
+export function formatDate(isoString: string): FormattedData {
+  const date = new Date(isoString);
+
+  if (isNaN(date.getTime())) {
+    return { time: "", data: "" };
+  }
+
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+
+  const hours = date.getHours();
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  return {
+    time: `${hours}:${minutes}`,
+    data: `${day}.${month}.${year}`,
+  };
+}

@@ -22,6 +22,7 @@ export default function NoteCard({ note }: NoteProps) {
       <div className="flex flex-col-reverse gap-y-5 tablet:flex-row tablet:gap-x-4 items-center">
         <ButtonLink
           text="View details"
+          href={`/notes/${note.id}`}
           twStyles="py-2.5 px-5 w-full tablet:min-w-31.75 text-center text-green-200 mobile:text-s16 leading-5 border cursor-pointer selection:text-purple-800 selection:bg-white-950/90"
         />
         <div className="flex justify-between items-center w-full">

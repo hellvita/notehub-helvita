@@ -10,11 +10,11 @@ interface NoteProps {
 
 export default function Note({ note }: NoteProps) {
   return (
-    <div className="relative bg-black-800 p-6 pb-0 tablet:w-135 tablet-big:w-200 mx-auto">
+    <div className="relative bg-black-800 p-6 pb-0">
       <DeleteButton />
 
       <div className="flex gap-x-3 items-center tablet-big:justify-center w-full mb-4">
-        <ButtonBack backPath="/notes/filter/all" />
+        <ButtonBack backPath="/notes/filter/all" mobile />
         <h2 className="text-center w-[70%] tablet:w-[80%] mobile:text-s28 tablet-big:text-s24 font-medium">
           {note.title}
         </h2>

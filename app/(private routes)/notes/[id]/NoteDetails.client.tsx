@@ -1,5 +1,6 @@
 "use client";
 
+import ButtonBack from "@/components/NoteDetails/ButtonBack/ButtonBack";
 import Note from "@/components/NoteDetails/Note/Note";
 import { Note as TypeNote } from "@/types/note";
 
@@ -15,8 +16,11 @@ export default function NoteDetailsClient() {
   };
 
   return (
-    <div className="flex flex-col gap-y-8 grow bg-black-900 p-5 tablet-big:p-10">
-      <Note note={tempNote} />
+    <div className="grow bg-black-900 p-5 tablet-big:p-10 ">
+      <div className="flex flex-col gap-y-7 tablet:w-135 tablet-big:w-200 mx-auto">
+        <ButtonBack backPath="/notes/filter/all" />
+        <Note note={tempNote} />
+      </div>
     </div>
   );
 }

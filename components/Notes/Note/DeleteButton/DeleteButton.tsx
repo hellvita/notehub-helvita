@@ -7,7 +7,7 @@ export default function DeleteButton() {
       title="delete"
       aria-label="delete the note"
     >
-      <IconDelete className="text-white-950/60 group-hover/btn:text-pink-400/60 group-hover/btn:scale-120 transition-colors duration-300 mobile:text-s24" />
+      <IconDelete className="text-white-950/60 group-hover/btn:text-pink-400 group-hover/btn:scale-90 group-hover/btn:tablet-big:scale-120 transition-colors duration-300 mobile:text-s24" />
     </button>
   );
 }

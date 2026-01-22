@@ -10,7 +10,7 @@ interface NoteProps {
 
 export default function Note({ note }: NoteProps) {
   return (
-    <div className="relative bg-black-800 p-6 pb-0">
+    <div className="relative bg-black-800 p-6 pb-0 tablet:max-w-135 mx-auto">
       <DeleteButton />
 
       <div className="flex gap-x-3 items-center w-full mb-4">

@@ -7,7 +7,7 @@ export default function EditButton() {
       title="edit"
       aria-label="edit the note"
     >
-      <IconEdit className="text-s28 text-blue-400/60 group-hover/edit:text-blue-400 group-hover/edit:scale-110 transition-colors duration-300" />
+      <IconEdit className="text-s28 text-blue-400/60 group-hover/edit:text-blue-400 group-hover/edit:scale-90 group-hover/edit:tablet-big:scale-110 transition-colors duration-300" />
     </button>
   );
 }

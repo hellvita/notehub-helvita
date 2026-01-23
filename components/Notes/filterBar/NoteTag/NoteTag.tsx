@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { convertToRgba } from "@/lib/utils/colors";
+import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
 
 interface NoteTagProps {
   tagName: string;
@@ -14,10 +15,14 @@ export default function NoteTag({
   key = undefined,
   active = false,
 }: NoteTagProps) {
+  const width = useWindowWidth();
+
+  const deviceStyle = width > 1000 ? { y: "-4px" } : { scale: "0.9" };
+
   const animStyle = active
     ? {}
     : {
-        y: "-4px",
+        ...deviceStyle,
         borderColor: "var(--color-pink-400)",
         backgroundColor: convertToRgba("var(--color-pink-400)", 0.1),
       };

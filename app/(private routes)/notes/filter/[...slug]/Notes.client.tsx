@@ -30,6 +30,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
       <div className="mb-7 flex items-center justify-center gap-x-7">
         <SearchBar />
         <ButtonLink
+          href="/notes/action/create"
           text="Create note +"
           twStyles="px-6 py-4 text-blue-400 text-s24 font-medium border cursor-pointer max-tablet-big:hidden"
           bgColorHover="var(--color-blue-400)"

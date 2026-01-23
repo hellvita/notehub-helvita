@@ -7,11 +7,13 @@ import ButtonText from "@/components/parts/ButtonText/ButtonText";
 interface ButtonBackProps {
   backPath: string;
   mobile?: boolean;
+  preview?: boolean;
 }
 
 export default function ButtonBack({
   backPath,
   mobile = false,
+  preview = false,
 }: ButtonBackProps) {
   const router = useRouter();
 
@@ -20,7 +22,7 @@ export default function ButtonBack({
   return mobile ? (
     <button
       onClick={handleBack}
-      className="group tablet-big:hidden p-1 cursor-pointer"
+      className={`group p-1 cursor-pointer ${preview ? "" : "tablet-big:hidden"}`}
     >
       <IconBack
         className="group-hover:fill-blue-400 group-hover:scale-90 transition-colors duration-300 mobile:text-s24"

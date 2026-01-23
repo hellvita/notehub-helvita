@@ -29,7 +29,14 @@ export default function Modal({ onClose, children }: ModalProps) {
   }, [onClose]);
 
   return createPortal(
-    <div onClick={handleBackdropClick}>{children}</div>,
+    <div
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      className="fixed flex items-center justify-center z-100 top-0 left-0 w-full h-full bg-white-950/10 p-10"
+    >
+      {children}
+    </div>,
     document.body,
   );
 }

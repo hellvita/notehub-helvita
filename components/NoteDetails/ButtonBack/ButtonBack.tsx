@@ -22,6 +22,7 @@ export default function ButtonBack({
   return mobile ? (
     <button
       onClick={handleBack}
+      type="button"
       className={`group p-1 cursor-pointer ${preview ? "" : "tablet-big:hidden"}`}
     >
       <IconBack

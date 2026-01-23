@@ -31,7 +31,7 @@ export default function Note({ note, preview = false }: NoteProps) {
       <div className="sticky bottom-0 flex justify-between items-center flex-wrap gap-2 bg-linear-to-b from-black-800/0 via-black-800/97 to-black-800 pt-5 pb-6">
         <TagLabel tagName={note.tag} />
         <EditTime dataTime={note.updatedAt ? note.updatedAt : note.createdAt} />
-        <EditButton />
+        <EditButton noteId={note.id} />
       </div>
     </div>
   );

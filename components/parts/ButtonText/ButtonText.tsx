@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 interface ButtonTextProps {
   text: string;
-  handler: () => void;
+  handler?: () => void;
   twStyles?: string;
   twStylesAdditional?: string;
   textColorHover?: string;

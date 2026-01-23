@@ -27,7 +27,7 @@ export default function NoteCard({ note }: NoteProps) {
         />
         <div className="flex justify-between items-center w-full">
           <TagLabel tagName={note.tag} />
-          <EditButton />
+          <EditButton noteId={note.id} />
         </div>
       </div>
     </li>

@@ -17,18 +17,22 @@ export default function TagList({
   isInput = false,
   fieldId = "",
 }: TagListProps) {
-  const [activeTag, setActiveTag] = useState<TagType | "All">("All");
+  const [activeTag, setActiveTag] = useState<TagType | "All">(
+    isInput ? TAG_TYPES[0] : "All",
+  );
 
   return (
     <ul className={twStylesContainer}>
-      <NoteTag
-        tagName={`All`}
-        active={activeTag === "All"}
-        onSelect={() => setActiveTag("All")}
-        twStyles={twStylesItem ? twStylesItem : undefined}
-        isInput={isInput}
-        fieldId={fieldId}
-      />
+      {!isInput && (
+        <NoteTag
+          tagName={`All`}
+          active={activeTag === "All"}
+          onSelect={() => setActiveTag("All")}
+          twStyles={twStylesItem ? twStylesItem : undefined}
+          isInput={isInput}
+          fieldId={fieldId}
+        />
+      )}
       {TAG_TYPES.map((tag, index) => (
         <NoteTag
           key={index}
@@ -38,6 +42,7 @@ export default function TagList({
           twStyles={twStylesItem ? twStylesItem : undefined}
           isInput={isInput}
           fieldId={fieldId}
+          checked={activeTag === tag}
         />
       ))}
     </ul>

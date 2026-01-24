@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import Header from "@/components/Header/Header";
 import ModalMobile from "@/components/ModalMobile/ModalMobile";
 import Footer from "@/components/Footer/Footer";
@@ -47,13 +48,15 @@ export default function RootLayout({
         className={`${roboto.variable} antialiased text-white-950 text-s12 mobile:text-s16 leading-4 mobile:leading-8 flex flex-col min-h-screen relative`}
       >
         <TanStackProvider>
-          <ModalMobile />
-          <Header />
+          <AuthProvider>
+            <ModalMobile />
+            <Header />
 
-          {children}
-          {modal}
+            {children}
+            {modal}
 
-          <Footer />
+            <Footer />
+          </AuthProvider>
         </TanStackProvider>
       </body>
     </html>

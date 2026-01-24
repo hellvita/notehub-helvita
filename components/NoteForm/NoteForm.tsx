@@ -26,7 +26,7 @@ export default function NoteForm({
     >
       <div className="tablet-big:mb-7 flex gap-2 items-center justify-between">
         <ButtonBack backPath="/notes/filter/all" />
-        <h1 className="max-tablet-big:hidden">{`${edit ? "Edit" : "Create"} note`}</h1>
+        <h1 className="max-tablet-big:hidden text-s40 font-medium">{`${edit ? "Edit" : "Create"} note`}</h1>
         <ButtonText
           text="Save"
           type="submit"
@@ -47,7 +47,7 @@ export default function NoteForm({
             required
             minLength={3}
             maxLength={50}
-            className="text-center w-[84%] mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none"
+            className="text-center tablet-big:text-left w-[84%] tablet-big:w-full mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none"
           ></textarea>
         </div>
 

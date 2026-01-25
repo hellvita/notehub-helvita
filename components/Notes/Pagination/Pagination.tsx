@@ -11,12 +11,24 @@ export default function Pagination({
   currentPage,
   setCurrentPage,
 }: PaginationProps) {
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <ReactPaginate
       pageCount={totalPages}
       pageRangeDisplayed={5}
       marginPagesDisplayed={1}
-      onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+      onPageChange={({ selected }) => {
+        setCurrentPage(selected + 1);
+        scrollToTop();
+      }}
       forcePage={currentPage - 1}
       containerClassName="flex flex-wrap justify-center items-center gap-3 max-w-56 tablet:max-w-100 tablet-big:max-w-192 mx-auto mobile:text-s20 text-white-950 selection:text-purple-800 selection:bg-pink-400"
       pageClassName="cursor-pointer py-3 px-4.25 border border-white-950/10 hover:border-blue-400 hover:text-blue-400"

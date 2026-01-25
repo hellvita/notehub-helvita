@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="flex grow flex-col gap-7 items-center justify-center bg-black-800 p-10 mobile:leading-auto">
+    <div className="flex grow flex-col gap-7 items-center justify-center bg-black-800 p-10 mobile:leading-auto selection:text-purple-800 selection:bg-pink-400">
       <div className="">
         <h1 className="font-medium mobile:text-s40 mb-4 text-pink-400">
           404 - Page not found

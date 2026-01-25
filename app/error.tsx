@@ -9,7 +9,7 @@ interface ErrorProps {
 
 export default function Error({ error, reset }: ErrorProps) {
   return (
-    <div className="flex grow flex-col gap-7 items-center justify-center bg-black-800 font-medium p-10 mobile:leading-auto">
+    <div className="flex grow flex-col gap-7 items-center justify-center bg-black-800 font-medium p-10 mobile:leading-auto selection:text-purple-800 selection:bg-pink-400">
       <div>
         <p className="mb-4 mobile:text-s32 text-center">
           <span className="text-pink-400">Oops!</span> There was an error,
@@ -17,7 +17,7 @@ export default function Error({ error, reset }: ErrorProps) {
         </p>
         {error && (
           <p className="font-light mobile:text-s28">
-            Details:
+            Details:&nbsp;
             <i className="text-pink-400 mobile:text-s20">{error.message}</i>
           </p>
         )}

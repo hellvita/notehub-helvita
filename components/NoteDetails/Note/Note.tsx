@@ -1,3 +1,9 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { deleteNote } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
 import DeleteButton from "../../Notes/Note/DeleteButton/DeleteButton";
 import ButtonBack from "../ButtonBack/ButtonBack";
 import TagLabel from "@/components/Notes/Note/TagLabel/TagLabel";
@@ -11,11 +17,28 @@ interface NoteProps {
 }
 
 export default function Note({ note, preview = false }: NoteProps) {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: async (id: string) => deleteNote(id),
+    onSuccess: (deletedNote) => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      toast(`The '${deletedNote.title}' note has been deleted!`);
+      router.back();
+    },
+    onError: () => toast("Could not delete note, please try again..."),
+  });
+
+  const handleDeleteNote = (id: string) => {
+    mutation.mutate(id);
+  };
+
   return (
     <div
       className={`relative bg-black-800 p-6 pb-0 ${preview ? "min-[530px]:w-113 tablet-big:w-200" : ""}`}
     >
-      <DeleteButton />
+      <DeleteButton id={note.id} handleDelete={handleDeleteNote} />
 
       <div className="flex gap-x-3 items-center tablet-big:justify-center w-full mb-4">
         <ButtonBack backPath="/notes/filter/all" mobile preview={preview} />

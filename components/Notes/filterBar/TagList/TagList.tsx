@@ -25,7 +25,7 @@ export default function TagList({
     <ul className={twStylesContainer}>
       {!isInput && (
         <NoteTag
-          tagName={`All`}
+          tagName={`all`}
           active={activeTag === "All"}
           onSelect={() => setActiveTag("All")}
           twStyles={twStylesItem ? twStylesItem : undefined}

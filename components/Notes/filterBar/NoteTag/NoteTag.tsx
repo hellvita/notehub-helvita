@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, scale } from "motion/react";
+import { motion } from "motion/react";
 import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
+import Link from "next/link";
 
 interface NoteTagProps {
   tagName: string;
@@ -73,7 +74,7 @@ export default function NoteTag({
         }
       `}
     >
-      {tagName}
+      <Link href={`/notes/filter/${tagName}`}>{tagName}</Link>
     </motion.li>
   );
 }

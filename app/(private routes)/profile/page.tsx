@@ -1,15 +1,40 @@
+import type { Metadata } from "next";
+import { getMe } from "@/lib/api/serverApi";
 import DefaultAvatar from "@/components/parts/DefaultAvatar/DefaultAvatar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import { normalizeEmail } from "@/lib/utils/strings";
 
-export default function ProfilePage() {
-  const testEmails = {
-    short: "user@mail.com",
-    long: "myVeryLongEmail123456789@mail.com",
-  };
+export async function generateMetadata(): Promise<Metadata> {
+  const user = await getMe();
 
-  const normalizedEmail = normalizeEmail(testEmails.long);
+  const titleStr = user.username;
+  const descriptionStr = `${user.username}'s profile page. View your email, avatar, and update your username. Manage your account identity on NoteHub.`;
+  const baseURL = process.env.NEXT_PUBLIC_API_URL;
+
+  return {
+    title: titleStr,
+    description: descriptionStr.slice(0, 60),
+    openGraph: {
+      title: titleStr,
+      description: descriptionStr,
+      url: `${baseURL}/profile`,
+      images: [
+        {
+          url: `${baseURL}/notehub-helvita-og-meta.jpg`,
+          width: 1200,
+          height: 630,
+          alt: `${user.username}'s profile page`,
+        },
+      ],
+    },
+  };
+}
+
+export default async function ProfilePage() {
+  const user = await getMe();
+
+  const normalizedEmail = normalizeEmail(user.email);
 
   return (
     <div className="py-12 px-5 tablet:px-10 bg-black-800">
@@ -30,7 +55,7 @@ export default function ProfilePage() {
         <DefaultAvatar />
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet-big:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
-          <UserInfo label="Username" value="my-user-name" />
+          <UserInfo label="Username" value={user.username} />
           <UserInfo
             label="Email"
             value={normalizedEmail}

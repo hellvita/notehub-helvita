@@ -47,7 +47,7 @@ export default function Note({ note, preview = false }: NoteProps) {
         </h2>
       </div>
 
-      <p className="mobile:leading-7 mobile:text-s20 text-white-400">
+      <p className="mobile:leading-7 mobile:text-s20 text-white-400 whitespace-pre-wrap">
         {note.content}
       </p>
 

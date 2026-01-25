@@ -67,7 +67,7 @@ export default function NoteForm({
           rows={3}
           maxLength={500}
           onChange={handleChange}
-          className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none mb-8"
+          className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none whitespace-pre-wrap mb-8"
         ></textarea>
 
         <TagList

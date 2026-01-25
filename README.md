@@ -141,12 +141,6 @@ The live version of the application is available here:
 
 ---
 
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
 ## Author
 
 Created with 💙 by [Olha Sereda](https://github.com/hellvita)

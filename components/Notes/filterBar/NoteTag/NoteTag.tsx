@@ -12,6 +12,7 @@ interface NoteTagProps {
   isInput?: boolean;
   checked?: boolean;
   fieldId?: string | number;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function NoteTag({
@@ -22,6 +23,7 @@ export default function NoteTag({
   isInput = false,
   checked = false,
   fieldId = "",
+  handleChange,
 }: NoteTagProps) {
   const width = useWindowWidth();
 
@@ -54,6 +56,7 @@ export default function NoteTag({
         value={tagName}
         id={`${fieldId}-tag`}
         defaultChecked={checked}
+        onChange={handleChange}
         className="hidden"
       />
       {tagName}

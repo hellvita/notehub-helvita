@@ -10,6 +10,7 @@ interface TagListProps {
   isInput?: boolean;
   fieldId?: string | number;
   defaultTag?: TagType;
+  handleChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function TagList({
@@ -18,6 +19,7 @@ export default function TagList({
   isInput = false,
   fieldId = "",
   defaultTag = TAG_TYPES[0],
+  handleChange,
 }: TagListProps) {
   const [activeTag, setActiveTag] = useState<TagType | "All">(
     isInput ? defaultTag : "All",
@@ -45,6 +47,7 @@ export default function TagList({
           isInput={isInput}
           fieldId={fieldId}
           checked={activeTag === tag}
+          handleChange={handleChange}
         />
       ))}
     </ul>

@@ -3,19 +3,25 @@
 import ButtonBack from "@/components/NoteDetails/ButtonBack/ButtonBack";
 import ButtonText from "../parts/ButtonText/ButtonText";
 import TagList from "../Notes/filterBar/TagList/TagList";
-import { Note } from "@/types/note";
+import { Note, NoteTag } from "@/types/note";
 import { useId } from "react";
 
 interface NoteFormProps {
   note?: Note;
   edit?: boolean;
+  draft?: { title: string; content: string; tag: NoteTag };
   handelSubmit: (formData: FormData) => void;
+  handleChange?: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => void;
 }
 
 export default function NoteForm({
   note,
   edit = false,
+  draft,
   handelSubmit,
+  handleChange,
 }: NoteFormProps) {
   const fieldId = useId();
 
@@ -43,11 +49,12 @@ export default function NoteForm({
             name="title"
             id={`${fieldId}-title`}
             placeholder="Title"
-            defaultValue={note ? note.title : undefined}
+            defaultValue={note ? note.title : draft ? draft.title : undefined}
             rows={1}
             required
             minLength={3}
             maxLength={50}
+            onChange={handleChange}
             className="text-center tablet-big:text-left w-[84%] tablet-big:w-full mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none"
           ></textarea>
         </div>
@@ -56,16 +63,18 @@ export default function NoteForm({
           name="content"
           id={`${fieldId}-content`}
           placeholder="Content"
-          defaultValue={note ? note.content : undefined}
+          defaultValue={note ? note.content : draft ? draft.content : undefined}
           rows={3}
           maxLength={500}
+          onChange={handleChange}
           className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none mb-8"
         ></textarea>
 
         <TagList
           fieldId={fieldId}
           isInput
-          defaultTag={note ? note.tag : undefined}
+          defaultTag={note ? note.tag : draft ? draft.tag : undefined}
+          handleChange={handleChange}
           twStylesContainer="mb-8 tablet-big:mb-0 flex flex-wrap items-center justify-center gap-x-2 tablet:gap-x-5 gap-y-3 tablet:gap-y-6"
           twStylesItem="mobile:text-s12 px-4 py-0.5"
         />

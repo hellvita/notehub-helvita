@@ -7,12 +7,13 @@ import { sliceContent } from "@/lib/utils/strings";
 
 interface NoteProps {
   note: Note;
+  handleDelete: (id: string) => void;
 }
 
-export default function NoteCard({ note }: NoteProps) {
+export default function NoteCard({ note, handleDelete }: NoteProps) {
   return (
     <li className="relative flex flex-col w-full max-w-93 p-6 bg-black-800 selection:text-blue-400 selection:bg-blue-400-12">
-      <DeleteButton />
+      <DeleteButton id={note.id} handleDelete={handleDelete} />
       <h2 className="mobile:text-s20 font-medium leading-8 mb-3">
         {note.title}
       </h2>

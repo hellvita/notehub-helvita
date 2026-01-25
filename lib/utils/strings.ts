@@ -27,6 +27,10 @@ export const getProfilePicture = (): string => {
 };
 
 export const sliceContent = (text: string): string => {
+  if (typeof text !== "string") {
+    return "";
+  }
+
   const MAX_LENGTH = 127;
 
   if (text.length <= MAX_LENGTH) {

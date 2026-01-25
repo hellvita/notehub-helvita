@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header/Header";
 import ModalMobile from "@/components/ModalMobile/ModalMobile";
 import Footer from "@/components/Footer/Footer";
@@ -51,7 +52,12 @@ export default function RootLayout({
           <AuthProvider>
             <ModalMobile />
             <Header />
-
+            <Toaster
+              toastOptions={{
+                className:
+                  "text-center selection:text-purple-800 selection:bg-pink-400 text-black-900",
+              }}
+            />
             {children}
             {modal}
 

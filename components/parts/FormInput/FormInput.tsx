@@ -8,13 +8,14 @@ interface FormInputProps {
   type: string;
   name: string;
   defaultValue?: string | number | readonly string[] | undefined;
+  value?: string | number | readonly string[] | undefined;
   label?: string;
   required?: boolean;
   hint?: string;
   twStylesContainer?: string;
   twStylesLabel?: string;
   twStylesInput?: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function FormInput({
@@ -25,6 +26,7 @@ export default function FormInput({
   required = true,
   hint = "",
   defaultValue = undefined,
+  value = undefined,
   twStylesContainer = "flex flex-col gap-2",
   twStylesLabel = "text-green-200 mobile:text-s16 tablet:text-s20 uppercase",
   twStylesInput = "py-3 px-4 outline-0 mobile:text-s18 tablet:text-s24 placeholder:font-light placeholder:text-white-400/50",
@@ -40,6 +42,7 @@ export default function FormInput({
       <motion.input
         id={id}
         defaultValue={defaultValue}
+        value={value}
         type={type}
         name={name}
         required={required}

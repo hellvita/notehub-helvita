@@ -29,7 +29,7 @@ export default function LinkAnim({
   const width = useWindowWidth();
 
   let bgColor: string = "rgba(0, 0, 0, 0)";
-  if (width >= 700) {
+  if (width && width >= 700) {
     bgColor = "rgba(0, 0, 0, 0)";
   } else {
     bgColor = convertToRgba(colorHover, 0.08);

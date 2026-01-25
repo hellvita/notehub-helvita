@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  --primary-pink: 230, 184 238;
+}
+
 @theme {
   --breakpoint-*: initial;
   --breakpoint-mobile: 320px;

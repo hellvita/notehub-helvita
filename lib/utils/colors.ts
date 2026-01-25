@@ -5,7 +5,14 @@
  * @param opacity Number from 0 to 1 (e.g. 0.5)
  * @returns String in the format "rgba(r, g, b, a)"
  */
-export const convertToRgba = (cssVar: string, opacity: number): string => {
+export const convertToRgba = (
+  cssVar: string,
+  opacity: number,
+  defaultColor?: string,
+): string => {
+  if (typeof window === "undefined")
+    return defaultColor ? defaultColor : "rgba(239, 239, 238, 0.05)";
+
   const variableName = cssVar.includes("var(")
     ? cssVar.split("(")[1].split(")")[0]
     : cssVar;

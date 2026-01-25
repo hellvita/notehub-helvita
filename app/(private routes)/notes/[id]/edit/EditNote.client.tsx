@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-import { TAG_TYPES, UpdatedNote, NoteTag } from "@/types/note";
+import { UpdatedNote, NoteTag } from "@/types/note";
 import { fetchNoteById, updateNoteById } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 import Loader from "@/components/Loader/Loader";
@@ -33,14 +33,7 @@ export default function EditNoteClient() {
       toast(`The '${updatedNote.title}' note has been updated!`);
       router.push("/notes/filter/all");
     },
-    onError: () =>
-      toast("Could not save changes, please try again...", {
-        style: {
-          borderColor: "#d32f2f",
-          textDecoration: "underline",
-          textDecorationColor: "#d32f2f",
-        },
-      }),
+    onError: () => toast("Could not save changes, please try again..."),
   });
 
   const handleSubmit = async (formData: FormData) => {
@@ -53,6 +46,7 @@ export default function EditNoteClient() {
         tag: String(rawValues.tag) as NoteTag,
       },
     };
+
     mutate(values);
   };
 

@@ -51,6 +51,7 @@ export default function NoteTag({
       <input
         type="radio"
         name="tag"
+        value={tagName}
         id={`${fieldId}-tag`}
         defaultChecked={checked}
         className="hidden"

@@ -1,27 +1,70 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/lib/store/authStore";
+import { getMe, updateMe } from "@/lib/api/clientApi";
+import { User } from "@/types/user";
+import Loader from "@/components/Loader/Loader";
 import DefaultAvatar from "@/components/parts/DefaultAvatar/DefaultAvatar";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import FormInput from "@/components/parts/FormInput/FormInput";
+import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
 
 export default function EditProfilePage() {
   const router = useRouter();
+  const setUser = useAuthStore((state) => state.setUser);
+  const [newUserData, setNewUserUser] = useState<User | null>(null);
+  const [userName, setUserName] = useState<string>("");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const data = await getMe();
+
+        setNewUserUser(data);
+        setUserName(data.username);
+      } catch {
+        toast("Could not load profile, please try again...");
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
+  };
+
+  const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const res = await updateMe({
+      email: newUserData?.email ? newUserData.email : "",
+      username: userName,
+    });
+
+    if (res) {
+      setUser(res);
+      router.push("/profile");
+    } else {
+      toast("Could not update profile, please try again...");
+    }
+  };
 
   const handleCancel = () => router.push("/profile");
 
-  const testEmails = {
-    short: "user@mail.com",
-    long: "myVeryLongEmail123456789@mail.com",
-  };
+  if (!newUserData) return <Loader />;
 
-  const normalizedEmail = normalizeEmail(testEmails.long);
+  const normalizedEmail = normalizeEmail(newUserData.email);
 
   return (
-    <form className="py-12 px-5 tablet:px-10 bg-black-800 border-t-pink-400 border-t-3">
+    <form
+      className="py-12 px-5 tablet:px-10 bg-black-800 border-t-pink-400 border-t-3"
+      onSubmit={handleSave}
+    >
       <div className="mb-10 flex items-center tablet:justify-between">
         <div className="flex gap-10 items-center ">
           <button
@@ -58,7 +101,8 @@ export default function EditProfilePage() {
             id="username"
             type="text"
             name="username"
-            defaultValue="my-user-name"
+            defaultValue={newUserData.username}
+            onChange={handleChange}
             hint="Username"
             twStylesLabel="text-pink-400 mobile:text-s24"
             twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"

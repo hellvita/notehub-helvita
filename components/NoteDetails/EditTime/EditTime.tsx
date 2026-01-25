@@ -7,7 +7,7 @@ interface EditTimeProps {
 export default function EditTime({ dataTime }: EditTimeProps) {
   const formattedDT: FormattedData = formatDate(dataTime);
   return (
-    <div className="text-yellow-500 leading-3 flex flex-wrap gap-1 justify-center text-s12 max-[340px]:max-w-20">
+    <div className="text-yellow-500 leading-3 flex flex-wrap gap-1 justify-center text-s12 max-[340px]:max-w-20 selection:text-blue-400 selection:bg-blue-400-12">
       <p>{formattedDT.data}</p>
       <p>{formattedDT.time}</p>
     </div>

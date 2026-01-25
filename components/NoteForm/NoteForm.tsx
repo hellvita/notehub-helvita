@@ -55,7 +55,7 @@ export default function NoteForm({
             minLength={3}
             maxLength={50}
             onChange={handleChange}
-            className="text-center tablet-big:text-left w-[84%] tablet-big:w-full mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none"
+            className="text-center tablet-big:text-left w-[84%] tablet-big:w-full mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none selection:text-blue-400 selection:bg-blue-400-12"
           ></textarea>
         </div>
 
@@ -67,7 +67,7 @@ export default function NoteForm({
           rows={3}
           maxLength={500}
           onChange={handleChange}
-          className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none whitespace-pre-wrap mb-8"
+          className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none whitespace-pre-wrap mb-8 selection:text-blue-400 selection:bg-blue-400-12"
         ></textarea>
 
         <TagList

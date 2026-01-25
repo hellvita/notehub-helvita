@@ -42,12 +42,12 @@ export default function Note({ note, preview = false }: NoteProps) {
 
       <div className="flex gap-x-3 items-center tablet-big:justify-center w-full mb-4">
         <ButtonBack backPath="/notes/filter/all" mobile preview={preview} />
-        <h2 className="text-center w-[70%] tablet:w-[80%] mobile:text-s28 tablet-big:text-s24 font-medium">
+        <h2 className="text-center w-[70%] tablet:w-[80%] mobile:text-s28 tablet-big:text-s24 font-medium overflow-hidden selection:text-blue-400 selection:bg-blue-400-12">
           {note.title}
         </h2>
       </div>
 
-      <p className="mobile:leading-7 mobile:text-s20 text-white-400 whitespace-pre-wrap">
+      <p className="mobile:leading-7 mobile:text-s20 text-white-400 whitespace-pre-wrap overflow-hidden selection:text-blue-400 selection:bg-blue-400-12">
         {note.content}
       </p>
 

@@ -1,34 +1,55 @@
 "use client";
 
+import { fetchNotes } from "@/lib/api/clientApi";
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { notFound } from "next/navigation";
 import SearchBar from "@/components/Notes/SearchBar/SearchBar";
+import NoResultMessage from "@/components/Notes/NoResultMessage/NoResultMessage";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import NoteList from "@/components/Notes/NoteList/NoteList";
 import Pagination from "@/components/Notes/Pagination/Pagination";
 import CreateButtonMobile from "@/components/Notes/CreateButtonMobile/CreateButtonMobile";
-import { NoteTag, Note } from "@/types/note";
+import { NoteTag, TAG_TYPES } from "@/types/note";
 
 interface NotesClientProps {
   currentTag?: NoteTag;
 }
 
 export default function NotesClient({ currentTag }: NotesClientProps) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const tempNote: Note = {
-    id: "note-temp",
-    title: "Team Meeting Notes",
-    content:
-      "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
-    tag: "Meeting",
-    createdAt: "00",
-    updatedAt: "00",
-  };
+  const isValidRoute = (route: string | undefined): boolean =>
+    route ? (TAG_TYPES as readonly string[]).includes(route) : true;
+
+  if (!isValidRoute(currentTag)) notFound();
+
+  const { data, isSuccess } = useQuery({
+    queryKey: ["notes", currentPage, searchQuery, currentTag],
+    queryFn: () =>
+      fetchNotes({
+        page: currentPage,
+        search: searchQuery !== "" ? searchQuery : undefined,
+        tag: currentTag,
+      }),
+    placeholderData: keepPreviousData,
+    throwOnError: true,
+    staleTime: 60 * 1000,
+  });
+
+  const totalPages = data?.totalPages ?? 0;
+
+  const handleSearch = useDebouncedCallback((value: string) => {
+    setSearchQuery(value);
+    setCurrentPage(1);
+  }, 1000);
 
   return (
     <div className="relative">
       <div className="mb-7 flex items-center justify-center gap-x-7">
-        <SearchBar />
+        <SearchBar query={searchQuery} onSearch={handleSearch} />
         <ButtonLink
           href="/notes/action/create"
           text="Create note +"
@@ -38,13 +59,19 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
         />
       </div>
 
-      <NoteList notes={[tempNote]} />
+      {isSuccess && data.notes.length === 0 && searchQuery !== "" && (
+        <NoResultMessage invalidQuery={searchQuery} />
+      )}
 
-      <Pagination
-        totalPages={5}
-        currentPage={1}
-        setCurrentPage={setCurrentPage}
-      />
+      {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
+
+      {isSuccess && totalPages > 1 && (
+        <Pagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
 
       <CreateButtonMobile />
     </div>

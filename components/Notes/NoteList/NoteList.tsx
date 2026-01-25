@@ -23,7 +23,15 @@ export default function NoteList({ notes }: NoteListProps) {
   });
 
   const handleDeleteNote = (id: string) => {
-    mutation.mutate(id);
+    const noteTitle = notes.find((note) => note.id === id)?.title;
+
+    if (typeof window !== "undefined") {
+      const confirmed = window.confirm(`Delete the '${noteTitle}' note?`);
+
+      if (confirmed) {
+        mutation.mutate(id);
+      }
+    }
   };
 
   return (

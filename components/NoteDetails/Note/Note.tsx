@@ -31,7 +31,13 @@ export default function Note({ note, preview = false }: NoteProps) {
   });
 
   const handleDeleteNote = (id: string) => {
-    mutation.mutate(id);
+    if (typeof window !== "undefined") {
+      const confirmed = window.confirm(`Delete the '${note.title}' note?`);
+
+      if (confirmed) {
+        mutation.mutate(id);
+      }
+    }
   };
 
   return (

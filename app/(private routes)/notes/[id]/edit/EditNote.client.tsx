@@ -1,22 +1,68 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { TAG_TYPES, UpdatedNote, NoteTag } from "@/types/note";
+import { fetchNoteById, updateNoteById } from "@/lib/api/clientApi";
+import toast from "react-hot-toast";
+import Loader from "@/components/Loader/Loader";
 import NoteForm from "@/components/NoteForm/NoteForm";
-import { Note } from "@/types/note";
 
 export default function EditNoteClient() {
-  const tempNote: Note = {
-    id: "note-temp",
-    title: "Team Meeting Notes",
-    content:
-      "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
-    tag: "Meeting",
-    createdAt: "2025-12-29T13:19:26.432Z",
-    updatedAt: "2025-12-29T13:19:26.432Z",
+  const { id } = useParams<{ id: string }>();
+
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  const {
+    data: note,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
+    staleTime: 60 * 1000,
+  });
+
+  const { mutate } = useMutation({
+    mutationFn: updateNoteById,
+    onSuccess: (updatedNote) => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      toast(`The '${updatedNote.title}' note has been updated!`);
+      router.push("/notes/filter/all");
+    },
+    onError: () =>
+      toast("Could not save changes, please try again...", {
+        style: {
+          borderColor: "#d32f2f",
+          textDecoration: "underline",
+          textDecorationColor: "#d32f2f",
+        },
+      }),
+  });
+
+  const handleSubmit = async (formData: FormData) => {
+    const rawValues = Object.fromEntries(formData);
+    const values: UpdatedNote = {
+      id,
+      body: {
+        title: String(rawValues.title),
+        content: String(rawValues.content),
+        tag: String(rawValues.tag) as NoteTag,
+      },
+    };
+    mutate(values);
   };
+
+  if (isLoading) return <Loader />;
+
+  if (error || !note) throw error ? error : new Error("Data was not loaded");
 
   return (
     <div className="grow bg-black-900 p-5 tablet-big:p-10 ">
-      <NoteForm note={tempNote} edit handelSubmit={() => {}} />
+      <NoteForm note={note} edit handelSubmit={handleSubmit} />
     </div>
   );
 }

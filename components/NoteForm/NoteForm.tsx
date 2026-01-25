@@ -9,7 +9,7 @@ import { useId } from "react";
 interface NoteFormProps {
   note?: Note;
   edit?: boolean;
-  handelSubmit: () => void;
+  handelSubmit: (formData: FormData) => void;
 }
 
 export default function NoteForm({
@@ -43,6 +43,7 @@ export default function NoteForm({
             name="title"
             id={`${fieldId}-title`}
             placeholder="Title"
+            defaultValue={note ? note.title : undefined}
             rows={1}
             required
             minLength={3}
@@ -55,6 +56,7 @@ export default function NoteForm({
           name="content"
           id={`${fieldId}-content`}
           placeholder="Content"
+          defaultValue={note ? note.content : undefined}
           rows={3}
           maxLength={500}
           className="w-full mobile:leading-7 mobile:text-s20 text-white-400 placeholder:text-white-400/50 resize-none field-sizing-content overflow-hidden outline-none mb-8"
@@ -63,6 +65,7 @@ export default function NoteForm({
         <TagList
           fieldId={fieldId}
           isInput
+          defaultTag={note ? note.tag : undefined}
           twStylesContainer="mb-8 tablet-big:mb-0 flex flex-wrap items-center justify-center gap-x-2 tablet:gap-x-5 gap-y-3 tablet:gap-y-6"
           twStylesItem="mobile:text-s12 px-4 py-0.5"
         />

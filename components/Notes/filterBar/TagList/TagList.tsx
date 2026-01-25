@@ -9,6 +9,7 @@ interface TagListProps {
   twStylesItem?: string;
   isInput?: boolean;
   fieldId?: string | number;
+  defaultTag?: TagType;
 }
 
 export default function TagList({
@@ -16,9 +17,10 @@ export default function TagList({
   twStylesItem,
   isInput = false,
   fieldId = "",
+  defaultTag = TAG_TYPES[0],
 }: TagListProps) {
   const [activeTag, setActiveTag] = useState<TagType | "All">(
-    isInput ? TAG_TYPES[0] : "All",
+    isInput ? defaultTag : "All",
   );
 
   return (

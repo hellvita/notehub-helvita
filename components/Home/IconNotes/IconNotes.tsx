@@ -47,9 +47,9 @@ export default function IconNotes() {
   let screenSize: ScreenSize = "mobile";
   const imageSrc = `/notes-${screenSize}.svg`;
 
-  if (width >= 1133) {
+  if (width && width >= 1133) {
     screenSize = "desktop";
-  } else if (width >= 700) {
+  } else if (width && width >= 700) {
     screenSize = "tablet";
   } else {
     screenSize = "mobile";

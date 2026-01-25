@@ -28,7 +28,7 @@ export default function NoteTag({
   const width = useWindowWidth();
 
   const motionHover = !active
-    ? width > 1000
+    ? width && width > 1000
       ? { y: -4 }
       : { scale: 0.9 }
     : { y: 0, scale: 1 };

@@ -13,7 +13,7 @@ export default function ModalMobile() {
 
   const { isOpen, setIsOpen } = useModalStore();
 
-  if (isOpen && width >= 700) setIsOpen(false);
+  if (isOpen && width && width >= 700) setIsOpen(false);
 
   useEffect(() => {
     setIsOpen(false);

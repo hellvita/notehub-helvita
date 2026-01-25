@@ -17,7 +17,7 @@ export default function NoteCard({ note, handleDelete }: NoteProps) {
       <h2 className="mobile:text-s20 font-medium leading-8 mb-3">
         {note.title}
       </h2>
-      <p className="grow mobile:text-s16 text-white-400 leading-5 mb-5 overflow-hidden">
+      <p className="grow mobile:text-s16 text-white-400 leading-5 mb-5 overflow-hidden whitespace-pre-wrap">
         {sliceContent(note.content)}
       </p>
       <div>

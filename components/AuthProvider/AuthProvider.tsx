@@ -10,7 +10,7 @@ interface AuthProviderProps {
 }
 
 export default function AuthProvider({ children }: AuthProviderProps) {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const setUser = useAuthStore((state) => state.setUser);
   const clearIsAuthenticated = useAuthStore(

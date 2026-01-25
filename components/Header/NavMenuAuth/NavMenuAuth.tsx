@@ -2,15 +2,16 @@
 
 import LinkAnim from "@/components/parts/LinkAnim/LinkAnim";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
+import { User } from "@/types/user";
 import { normalizeEmail } from "@/lib/utils/strings";
 
-export default function NavMenuAuth() {
-  const testEmails = {
-    short: "user@mail.com",
-    long: "myVeryLongEmail123456789@mail.com",
-  };
+interface NavMenuAuthProps {
+  user: User | null;
+  handleLogout: () => void;
+}
 
-  const normalizedEmail = normalizeEmail(testEmails.long);
+export default function NavMenuAuth({ user, handleLogout }: NavMenuAuthProps) {
+  const normalizedEmail = normalizeEmail(user ? user.email : "");
 
   return (
     <>
@@ -31,7 +32,7 @@ export default function NavMenuAuth() {
       <li>
         <ButtonText
           text="Logout"
-          handler={() => {}}
+          handler={handleLogout}
           twStylesAdditional="max-tablet:py-2 mobile:max-tablet:text-s32"
         />
       </li>

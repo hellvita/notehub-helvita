@@ -1,28 +1,48 @@
 "use client";
 
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { fetchNoteById } from "@/lib/api/clientApi";
+import Loader from "@/components/Loader/Loader";
 import Modal from "@/components/Modal/Modal";
 import Note from "@/components/NoteDetails/Note/Note";
-import { Note as TypeNote } from "@/types/note";
+import toast from "react-hot-toast";
 
 export default function NotePreviewClient() {
+  const { id } = useParams<{ id: string }>();
+  const [isError, setIsError] = useState<string>("");
+
   const router = useRouter();
+  const handleClose = () => router.back();
 
-  const handleBack = () => router.push("/notes/filter/all");
+  const {
+    data: note,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(id),
+    refetchOnMount: false,
+    staleTime: 60 * 1000,
+  });
 
-  const tempNote: TypeNote = {
-    id: "note-temp",
-    title: "Team Meeting Notes",
-    content:
-      "Discussed sprint retrospective findings and action items for next iteration. Focus on improving code review process. And more text here, more more more",
-    tag: "Meeting",
-    createdAt: "2025-12-29T13:19:26.432Z",
-    updatedAt: "2025-12-29T13:19:26.432Z",
+  if (error || !note) {
+    setIsError(error ? error.message : "Data was not loaded");
+  }
+
+  const showToast = () => {
+    toast(isError);
+    setIsError("");
+    return undefined;
   };
 
   return (
-    <Modal onClose={handleBack}>
-      <Note note={tempNote} preview />
+    <Modal onClose={handleClose}>
+      {isLoading && <Loader />}
+      {(error || !note) && !isLoading && showToast()}
+      {note && <Note note={note} preview />}
     </Modal>
   );
 }

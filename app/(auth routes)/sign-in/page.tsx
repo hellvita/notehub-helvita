@@ -1,14 +1,53 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { login, LoginRequest } from "@/lib/api/clientApi";
+import { useAuthStore } from "@/lib/store/authStore";
+import toast from "react-hot-toast";
 import AuthForm from "@/components/Auth/AuthForm";
 import FormInput from "@/components/parts/FormInput/FormInput";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [error, setError] = useState<string>("");
+  const setUser = useAuthStore((state) => state.setUser);
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSubmit = async (formData: FormData) => {
+    try {
+      setError("");
+
+      const formValues = Object.fromEntries(
+        formData,
+      ) as unknown as LoginRequest;
+
+      const res = await login(formValues);
+
+      if (res) {
+        setUser(res);
+        router.push("/profile");
+      } else {
+        setError("Invalid email or password");
+      }
+    } catch (error) {
+      setError((error as Error).message ?? "Oops... some error");
+    }
+  };
+
+  const showToast = () => {
+    toast(error);
+    setError("");
+    return undefined;
+  };
+
   return (
     <AuthForm
-      handleSubmit={() => {}}
+      handleSubmit={handleSubmit}
       title="Sign In"
       borderColor="border-yellow-500"
     >
@@ -20,6 +59,8 @@ export default function LoginPage() {
           name="email"
           hint="example@mail.com"
           twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20 uppercase"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <FormInput
           label="Password"
@@ -28,6 +69,8 @@ export default function LoginPage() {
           name="password"
           hint="Enter your password"
           twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20 uppercase"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
 
@@ -49,6 +92,8 @@ export default function LoginPage() {
           Create an account.
         </Link>
       </p>
+
+      {error != "" && showToast()}
     </AuthForm>
   );
 }

@@ -1,11 +1,11 @@
 "use client";
 
-import MobileMenu from "../Header/MobileMenu/MobileMenu";
 import { motion, AnimatePresence } from "motion/react";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useModalStore } from "@/lib/store/modalStore";
 import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
+import MobileMenu from "../Header/MobileMenu/MobileMenu";
 
 export default function ModalMobile() {
   const width = useWindowWidth();

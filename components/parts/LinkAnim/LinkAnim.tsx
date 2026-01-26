@@ -1,5 +1,6 @@
 "use client";
 
+import { useModalStore } from "@/lib/store/modalStore";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useWindowWidth } from "@/lib/hooks/useWindowWidth";
@@ -26,6 +27,7 @@ export default function LinkAnim({
   colorHover = "inherit",
   opacityHover = 1,
 }: LinkAnimProps) {
+  const { isOpen, setIsOpen } = useModalStore();
   const width = useWindowWidth();
 
   let bgColor: string = "rgba(0, 0, 0, 0)";
@@ -38,6 +40,9 @@ export default function LinkAnim({
   return (
     <MotionLink
       href={href}
+      onClick={() => {
+        if (isOpen) setIsOpen(false);
+      }}
       aria-label={ariaLabel}
       prefetch={prefetch}
       className={twStyles}

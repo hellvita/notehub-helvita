@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,6 @@ import toast from "react-hot-toast";
 
 export default function NotePreviewClient() {
   const { id } = useParams<{ id: string }>();
-  const [isError, setIsError] = useState<string>("");
 
   const router = useRouter();
   const handleClose = () => router.back();
@@ -28,20 +27,25 @@ export default function NotePreviewClient() {
     staleTime: 60 * 1000,
   });
 
-  if (error || !note) {
-    setIsError(error ? error.message : "Data was not loaded");
-  }
+  useEffect(() => {
+    if (!isLoading) {
+      let message = "";
 
-  const showToast = () => {
-    toast(isError);
-    setIsError("");
-    return undefined;
-  };
+      if (error) {
+        message = (error as Error).message;
+      } else if (!note) {
+        message = "Data was not loaded";
+      }
+
+      if (message) {
+        toast(message);
+      }
+    }
+  }, [error, note, isLoading]);
 
   return (
     <Modal onClose={handleClose}>
       {isLoading && <Loader />}
-      {(error || !note) && !isLoading && showToast()}
       {note && <Note note={note} preview />}
     </Modal>
   );

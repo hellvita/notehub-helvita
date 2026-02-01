@@ -1,7 +1,7 @@
 import { getRandomInt } from "./numbers";
 
 export const normalizeEmail = (email: string): string => {
-  const MAX_LENGTH = 16;
+  const MAX_LENGTH = 14;
   const minLength = Math.max(MAX_LENGTH, 12);
 
   if (email.length <= minLength) {
@@ -17,6 +17,20 @@ export const normalizeEmail = (email: string): string => {
   const lastChar = localPart.slice(-1);
 
   return `${visibleStart}...${lastChar}${fullDomain}`;
+};
+
+export const normalizeUsername = (username: string): string => {
+  if (username.includes("@")) return normalizeEmail(username);
+
+  const MAX_LENGTH = 10;
+
+  if (username.length <= MAX_LENGTH) {
+    return username;
+  }
+
+  const normValue = username.slice(0, MAX_LENGTH);
+
+  return `${normValue}...`;
 };
 
 export const getProfilePicture = (): string => {

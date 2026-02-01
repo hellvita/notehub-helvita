@@ -3,7 +3,7 @@ import { getMe } from "@/lib/api/serverApi";
 import DefaultAvatar from "@/components/parts/DefaultAvatar/DefaultAvatar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
-import { normalizeEmail } from "@/lib/utils/strings";
+import { normalizeEmail, normalizeUsername } from "@/lib/utils/strings";
 
 export async function generateMetadata(): Promise<Metadata> {
   const user = await getMe();
@@ -55,7 +55,7 @@ export default async function ProfilePage() {
         <DefaultAvatar />
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet-big:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
-          <UserInfo label="Username" value={user.username} />
+          <UserInfo label="Username" value={normalizeUsername(user.username)} />
           <UserInfo
             label="Email"
             value={normalizedEmail}

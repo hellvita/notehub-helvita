@@ -127,7 +127,6 @@ The live version of the application is available here:
 ## Known Issues and Limitations
 
 - In some cases, an authenticated user may be redirected to the home page when navigating to the notes page immediately after logging in.
-- The backend enforces a minimum password length during registration, but this constraint is not explicitly documented in the API. As a result, users may receive a generic error when using a shorter password.
 - Pagination may behave inconsistently, occasionally requiring multiple clicks to trigger data loading.
 - Due to the educational nature of the backend API, there are limitations on stored data size and overall stability under heavy load.
 

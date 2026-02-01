@@ -1,7 +1,7 @@
 "use client";
 
 interface AuthFormProps {
-  handleSubmit: (formData: FormData) => void;
+  handleSubmit: (formData?: FormData) => void;
   title: string;
   borderColor?: string;
   children: React.ReactNode;

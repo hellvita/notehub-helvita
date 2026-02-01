@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useReducer, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { register, RegisterRequest } from "@/lib/api/clientApi";
+import { register } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import toast from "react-hot-toast";
 import AuthForm from "@/components/Auth/AuthForm";
@@ -15,49 +15,93 @@ interface FormDataType {
   confirm: string;
 }
 
+interface FormState {
+  values: FormDataType;
+  error: string;
+}
+
+type FormAction =
+  | {
+      type: "SET_FIELD";
+      field: keyof FormDataType;
+      value: string;
+    }
+  | { type: "SET_ERROR"; message: string }
+  | { type: "RESET_FORM" }
+  | { type: "CLEAR_ERROR" };
+
+const initialState: FormState = {
+  values: { email: "", password: "", confirm: "" },
+  error: "",
+};
+
+const registerReducer = (state: FormState, action: FormAction): FormState => {
+  switch (action.type) {
+    case "SET_FIELD":
+      return {
+        ...state,
+        values: { ...state.values, [action.field]: action.value },
+        error: "",
+      };
+    case "SET_ERROR":
+      return { ...state, error: action.message };
+    case "RESET_FORM":
+      return initialState;
+    case "CLEAR_ERROR":
+      return { ...state, error: "" };
+    default:
+      return state;
+  }
+};
+
 export default function RegisterPage() {
   const router = useRouter();
-  const [error, setError] = useState<string>("");
   const setUser = useAuthStore((state) => state.setUser);
 
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirm, setConfirm] = useState<string>("");
+  const [state, dispatch] = useReducer(registerReducer, initialState);
+  const { values, error } = state;
 
-  const handleSubmit = async (formData: FormData) => {
+  useEffect(() => {
+    if (error) {
+      toast(error);
+      dispatch({ type: "CLEAR_ERROR" });
+    }
+  }, [error]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: "SET_FIELD",
+      field: e.target.name as keyof FormDataType,
+      value: e.target.value,
+    });
+  };
+
+  const handleSubmit = async () => {
     try {
-      setError("");
-
-      const rawFormValues = Object.fromEntries(
-        formData,
-      ) as unknown as FormDataType;
-
-      if (rawFormValues.password !== rawFormValues.confirm) {
-        throw Error("Passwords must match");
+      if (values.password !== values.confirm) {
+        return dispatch({ type: "SET_ERROR", message: "Passwords must match" });
       }
 
-      const formValues: RegisterRequest = {
-        email: rawFormValues.email,
-        password: rawFormValues.password,
-      };
-
-      const res = await register(formValues);
+      const res = await register({
+        email: values.email,
+        password: values.password,
+      });
 
       if (res) {
         setUser(res);
         router.push("/profile");
       } else {
-        setError("This email is already in use");
+        dispatch({
+          type: "SET_ERROR",
+          message: "This email is already in use",
+        });
       }
     } catch (error) {
-      setError((error as Error).message ?? "Oops... some error");
+      dispatch({
+        type: "SET_ERROR",
+        message: (error as Error).message ?? "Oops... some error",
+      });
     }
-  };
-
-  const showToast = () => {
-    toast(error);
-    setError("");
-    return undefined;
   };
 
   return (
@@ -69,8 +113,8 @@ export default function RegisterPage() {
           type="email"
           name="email"
           hint="example@mail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={values.email}
+          onChange={handleChange}
         />
         <FormInput
           label="Password"
@@ -78,8 +122,8 @@ export default function RegisterPage() {
           type="password"
           name="password"
           hint="Enter your password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={values.password}
+          onChange={handleChange}
         />
         <FormInput
           label="Confirm"
@@ -87,19 +131,16 @@ export default function RegisterPage() {
           type="password"
           name="confirm"
           hint="Confirm your password"
-          value={confirm}
-          onChange={(e) => setConfirm(e.target.value)}
+          value={values.confirm}
+          onChange={handleChange}
         />
       </div>
 
       <ButtonText
         type="submit"
         text="Register"
-        handler={() => {}}
         twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full tablet:max-w-58 text-green-200 mobile:text-s20 tablet-big:text-s24 font-medium border cursor-pointer"
       />
-
-      {error != "" && showToast()}
     </AuthForm>
   );
 }

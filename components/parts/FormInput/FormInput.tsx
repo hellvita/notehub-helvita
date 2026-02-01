@@ -7,6 +7,7 @@ interface FormInputProps {
   id: string;
   type: string;
   name: string;
+  minLength?: number;
   defaultValue?: string | number | readonly string[] | undefined;
   value?: string | number | readonly string[] | undefined;
   label?: string;
@@ -22,6 +23,7 @@ export default function FormInput({
   id,
   type,
   name,
+  minLength = -1,
   label,
   required = true,
   hint = "",
@@ -46,6 +48,7 @@ export default function FormInput({
         type={type}
         name={name}
         required={required}
+        minLength={minLength}
         onChange={onChange}
         placeholder={hint}
         autoComplete="off"

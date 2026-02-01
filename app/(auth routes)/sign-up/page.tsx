@@ -4,6 +4,7 @@ import { useReducer, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { register } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
+import { AxiosError } from "axios";
 import toast from "react-hot-toast";
 import AuthForm from "@/components/Auth/AuthForm";
 import FormInput from "@/components/parts/FormInput/FormInput";
@@ -97,9 +98,17 @@ export default function RegisterPage() {
         });
       }
     } catch (error) {
+      const errorCode = (error as AxiosError).response?.status.toString() ?? "";
+      const errorMessage =
+        errorCode === "400"
+          ? "Invalid email or password"
+          : errorCode === "409"
+            ? "This email is already in use"
+            : ((error as Error).message ?? "Oops... some error");
+
       dispatch({
         type: "SET_ERROR",
-        message: (error as Error).message ?? "Oops... some error",
+        message: errorMessage,
       });
     }
   };
@@ -121,6 +130,7 @@ export default function RegisterPage() {
           id="password"
           type="password"
           name="password"
+          minLength={6}
           hint="Enter your password"
           value={values.password}
           onChange={handleChange}
@@ -130,6 +140,7 @@ export default function RegisterPage() {
           id="confirm"
           type="password"
           name="confirm"
+          minLength={6}
           hint="Confirm your password"
           value={values.confirm}
           onChange={handleChange}

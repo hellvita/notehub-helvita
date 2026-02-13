@@ -86,6 +86,9 @@ export default function LoginPage() {
 
       if (res) {
         setUser(res);
+
+        localStorage.setItem("newSession", JSON.stringify(true));
+
         router.push("/profile");
       } else {
         dispatch({ type: "SET_ERROR", message: "Invalid email or password" });

@@ -90,6 +90,9 @@ export default function RegisterPage() {
 
       if (res) {
         setUser(res);
+
+        localStorage.setItem("newSession", JSON.stringify(true));
+
         router.push("/profile");
       } else {
         dispatch({

@@ -126,7 +126,6 @@ export default function LoginPage() {
           id="password"
           type="password"
           name="password"
-          minLength={6}
           hint="Enter your password"
           twStylesLabel="text-yellow-500 mobile:text-s16 tablet:text-s20 uppercase"
           value={values.password}

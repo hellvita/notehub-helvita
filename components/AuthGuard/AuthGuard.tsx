@@ -12,5 +12,5 @@ export default function AuthGuard({ children }: AuthGuardProps) {
 
   if (!ready) return <Loader />;
 
-  return children;
+  return <>{children}</>;
 }

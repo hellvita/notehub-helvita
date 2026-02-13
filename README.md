@@ -45,13 +45,13 @@ From the perspective of its original learning goals, the project is considered *
 
 ### Libraries and Tools
 
-- **Tailwind CSS** – styling and responsive layout
-- **Motion** – animations and UI transitions
-- **React Query** – server-state management and data caching
-- **Zustand** – lightweight global state management
-- **Axios** – HTTP client
-- **react-paginate** – pagination handling
-- **cookie** – cookie management
+- **Tailwind CSS** - styling and responsive layout
+- **Motion** - animations and UI transitions
+- **React Query** - server-state management and data caching
+- **Zustand** - lightweight global state management
+- **Axios** - HTTP client
+- **react-paginate** - pagination handling
+- **cookie** - cookie management
 
 ### Backend & API
 
@@ -126,7 +126,7 @@ The live version of the application is available here:
 
 ## Known Issues and Limitations
 
-- In some cases, an authenticated user may be redirected to the home page when navigating to the notes page immediately after logging in.
+- In some cases, an authenticated user may be redirected to the home page when navigating to the notes page immediately after logging in. (Temporary solution implemented: refreshing the page after login, so the new session could loaded)
 - Pagination may behave inconsistently, occasionally requiring multiple clicks to trigger data loading.
 - Due to the educational nature of the backend API, there are limitations on stored data size and overall stability under heavy load.
 

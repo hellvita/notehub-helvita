@@ -102,11 +102,11 @@ export const createNote = async (note: NewNote): Promise<Note> => {
 };
 
 export const updateNoteById = async (
-  updatedNote: UpdatedNote
+  updatedNote: UpdatedNote,
 ): Promise<Note> => {
   const { data } = await nextServer.patch<Note>(
     `/notes/${updatedNote.id}`,
-    updatedNote.body
+    updatedNote.body,
   );
 
   return data;

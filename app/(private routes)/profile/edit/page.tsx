@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { getMe, updateMe } from "@/lib/api/clientApi";
+import { getMe, updateMe, updateAvatar } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import Loader from "@/components/Loader/Loader";
 import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
-import IcButtonEditImg from "@/components/parts/IcButtonEditImg/IcButtonEditImg";
+import EditAvatar from "@/components/User/Profile/EditAvatar";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
@@ -21,6 +21,7 @@ export default function EditProfilePage() {
   const [newUserData, setNewUserData] = useState<User | null>(null);
   const [userName, setUserName] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
+  const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -38,22 +39,49 @@ export default function EditProfilePage() {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (avatarFile) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setAvatar(reader.result as string);
+      };
+
+      reader.readAsDataURL(avatarFile);
+    }
+  }, [avatarFile]);
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
   };
 
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await updateMe({
-      email: newUserData?.email ? newUserData.email : "",
-      username: userName,
-    });
 
-    if (res) {
+    try {
+      const res = await updateMe({
+        email: newUserData?.email ? newUserData.email : "",
+        username: userName,
+      });
       setUser(res);
+
+      if (avatarFile) {
+        const formData = new FormData();
+        formData.append("avatar", avatarFile);
+
+        const newAvatar = await updateAvatar(formData);
+
+        res.avatar = newAvatar;
+        setUser(res);
+      }
+
       router.push("/profile");
-    } else {
-      toast("Could not update profile, please try again...");
+    } catch (error) {
+      toast(
+        error
+          ? (error as Error).message
+          : "Could not update profile, please try again...",
+      );
     }
   };
 
@@ -98,7 +126,7 @@ export default function EditProfilePage() {
       <div className="flex flex-col gap-10 items-center tablet:flex-row">
         <div className="flex max-tablet:flex-col max-tablet:items-center tablet:items-baseline gap-2">
           <UserAvatar imageUrl={avatar} />
-          <IcButtonEditImg />
+          <EditAvatar setAvatar={setAvatarFile} />
         </div>
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">

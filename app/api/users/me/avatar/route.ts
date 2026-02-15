@@ -14,7 +14,6 @@ export async function PATCH(request: Request) {
     const res = await api.patch("/users/me/avatar", formData, {
       headers: {
         Cookie: cookieStore.toString(),
-        "Content-Type": "multipart/form-data",
       },
     });
 

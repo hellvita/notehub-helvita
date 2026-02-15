@@ -56,8 +56,8 @@ export const updateMe = async (userData: UpdateRequest): Promise<User> => {
   return data;
 };
 
-export const updateAvatar = async (userData: UpdateRequest): Promise<User> => {
-  const { data } = await nextServer.patch<User>("/users/me/avatar", userData);
+export const updateAvatar = async (userData: FormData): Promise<string> => {
+  const { data } = await nextServer.patch<string>("/users/me/avatar", userData);
 
   return data;
 };

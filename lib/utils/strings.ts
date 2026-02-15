@@ -22,7 +22,7 @@ export const normalizeEmail = (email: string): string => {
 export const normalizeUsername = (username: string): string => {
   if (username.includes("@")) return normalizeEmail(username);
 
-  const MAX_LENGTH = 10;
+  const MAX_LENGTH = 12;
 
   if (username.length <= MAX_LENGTH) {
     return username;

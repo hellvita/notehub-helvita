@@ -1,10 +1,14 @@
 import { getProfilePicture } from "@/lib/utils/strings";
 import Image from "next/image";
 
-export default function DefaultAvatar() {
+interface DefaultAvatarProps {
+  imageUrl?: string;
+}
+
+export default function DefaultAvatar({ imageUrl }: DefaultAvatarProps) {
   return (
     <Image
-      src={getProfilePicture()}
+      src={imageUrl || getProfilePicture()}
       alt="default profile picture"
       width={140}
       height={140}

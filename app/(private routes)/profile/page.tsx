@@ -54,7 +54,7 @@ export default async function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-10 items-center tablet-big:flex-row">
-          <DefaultAvatar />
+          <DefaultAvatar imageUrl={user.avatar} />
 
           <div className="w-full flex flex-col gap-y-5 tablet:max-tablet-big:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
             <UserInfo

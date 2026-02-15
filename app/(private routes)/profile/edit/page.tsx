@@ -17,7 +17,7 @@ import { normalizeEmail } from "@/lib/utils/strings";
 export default function EditProfilePage() {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
-  const [newUserData, setNewUserUser] = useState<User | null>(null);
+  const [newUserData, setNewUserData] = useState<User | null>(null);
   const [userName, setUserName] = useState<string>("");
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function EditProfilePage() {
       try {
         const data = await getMe();
 
-        setNewUserUser(data);
+        setNewUserData(data);
         setUserName(data.username);
       } catch {
         toast("Could not load profile, please try again...");

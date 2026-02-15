@@ -6,7 +6,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { getMe, updateMe } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import Loader from "@/components/Loader/Loader";
-import DefaultAvatar from "@/components/parts/DefaultAvatar/DefaultAvatar";
+import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
@@ -19,6 +19,7 @@ export default function EditProfilePage() {
   const setUser = useAuthStore((state) => state.setUser);
   const [newUserData, setNewUserData] = useState<User | null>(null);
   const [userName, setUserName] = useState<string>("");
+  const [avatar, setAvatar] = useState<string>("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,6 +28,7 @@ export default function EditProfilePage() {
 
         setNewUserData(data);
         setUserName(data.username);
+        setAvatar(data.avatar);
       } catch {
         toast("Could not load profile, please try again...");
       }
@@ -93,7 +95,7 @@ export default function EditProfilePage() {
       </div>
 
       <div className="flex flex-col gap-10 items-center tablet:flex-row">
-        <DefaultAvatar />
+        <UserAvatar imageUrl={avatar} />
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
           <FormInput

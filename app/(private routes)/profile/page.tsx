@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getMe } from "@/lib/api/serverApi";
-import DefaultAvatar from "@/components/parts/DefaultAvatar/DefaultAvatar";
+import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import { normalizeEmail, normalizeUsername } from "@/lib/utils/strings";
@@ -54,7 +54,7 @@ export default async function ProfilePage() {
         </div>
 
         <div className="flex flex-col gap-10 items-center tablet-big:flex-row">
-          <DefaultAvatar imageUrl={user.avatar} />
+          <UserAvatar imageUrl={user.avatar} />
 
           <div className="w-full flex flex-col gap-y-5 tablet:max-tablet-big:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
             <UserInfo

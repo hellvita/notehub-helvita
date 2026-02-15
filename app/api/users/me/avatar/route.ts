@@ -9,7 +9,6 @@ import { isAxiosError } from "axios";
 export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
-
     const formData = await request.formData();
 
     const res = await api.patch("/users/me/avatar", formData, {

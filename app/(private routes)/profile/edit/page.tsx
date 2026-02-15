@@ -7,6 +7,7 @@ import { getMe, updateMe } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import Loader from "@/components/Loader/Loader";
 import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
+import IcButtonEditImg from "@/components/parts/IcButtonEditImg/IcButtonEditImg";
 import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
@@ -95,7 +96,10 @@ export default function EditProfilePage() {
       </div>
 
       <div className="flex flex-col gap-10 items-center tablet:flex-row">
-        <UserAvatar imageUrl={avatar} />
+        <div className="flex max-tablet:flex-col max-tablet:items-center tablet:items-baseline gap-2">
+          <UserAvatar imageUrl={avatar} />
+          <IcButtonEditImg />
+        </div>
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
           <FormInput

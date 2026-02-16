@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import IcButtonEditImg from "@/components/parts/IcButtonEditImg/IcButtonEditImg";
+import IcButtonResetImg from "@/components/parts/IcButtonResetImg/IcButtonResetImg";
 import toast from "react-hot-toast";
 
 interface EditAvatarProps {
@@ -38,17 +39,20 @@ export default function EditAvatar({ setAvatar }: EditAvatarProps) {
   }, [error]);
 
   return (
-    <>
-      <input
-        id="avatar-input"
-        type="file"
-        accept="image/*"
-        className="hidden"
-        onChange={handleFileChange}
-      />
-      <label htmlFor="avatar-input">
-        <IcButtonEditImg />
-      </label>
-    </>
+    <div className="w-full flex justify-between tablet:flex-col-reverse">
+      <IcButtonResetImg />
+      <div>
+        <input
+          id="avatar-input"
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleFileChange}
+        />
+        <label htmlFor="avatar-input">
+          <IcButtonEditImg />
+        </label>
+      </div>
+    </div>
   );
 }

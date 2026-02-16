@@ -124,7 +124,7 @@ export default function EditProfilePage() {
       </div>
 
       <div className="flex flex-col gap-10 items-center tablet:flex-row">
-        <div className="flex max-tablet:flex-col max-tablet:items-center tablet:items-baseline gap-2">
+        <div className="flex max-tablet:flex-col max-tablet:items-center  gap-2 tablet:items-stretch">
           <UserAvatar imageUrl={avatar} />
           <EditAvatar setAvatar={setAvatarFile} />
         </div>

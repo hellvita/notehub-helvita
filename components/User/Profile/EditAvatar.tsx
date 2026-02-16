@@ -7,9 +7,13 @@ import toast from "react-hot-toast";
 
 interface EditAvatarProps {
   setAvatar: (file: File) => void;
+  resetAvatar: () => void;
 }
 
-export default function EditAvatar({ setAvatar }: EditAvatarProps) {
+export default function EditAvatar({
+  setAvatar,
+  resetAvatar,
+}: EditAvatarProps) {
   const [error, setError] = useState<string>("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +44,7 @@ export default function EditAvatar({ setAvatar }: EditAvatarProps) {
 
   return (
     <div className="w-full flex justify-between tablet:flex-col-reverse">
-      <IcButtonResetImg />
+      <IcButtonResetImg handleResetImg={resetAvatar} />
       <div>
         <input
           id="avatar-input"

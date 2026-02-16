@@ -14,6 +14,7 @@ import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import FormInput from "@/components/parts/FormInput/FormInput";
 import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
+import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
 
 export default function EditProfilePage() {
   const router = useRouter();
@@ -50,6 +51,10 @@ export default function EditProfilePage() {
       reader.readAsDataURL(avatarFile);
     }
   }, [avatarFile]);
+
+  const resetAvatar = () => {
+    setAvatar(DEFAULT_AVATAR);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
@@ -126,7 +131,7 @@ export default function EditProfilePage() {
       <div className="flex flex-col gap-10 items-center tablet:flex-row">
         <div className="flex max-tablet:flex-col max-tablet:items-center  gap-2 tablet:items-stretch">
           <UserAvatar imageUrl={avatar} />
-          <EditAvatar setAvatar={setAvatarFile} />
+          <EditAvatar setAvatar={setAvatarFile} resetAvatar={resetAvatar} />
         </div>
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">

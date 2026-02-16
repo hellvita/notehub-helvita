@@ -70,6 +70,12 @@ export const checkSession = async (): Promise<boolean> => {
   return data.success;
 };
 
+export const deleteMe = async () => {
+  const { data } = await nextServer.delete("/users/me");
+
+  return data;
+};
+
 export const getMe = async (): Promise<User> => {
   const { data } = await nextServer.get<User>("/users/me");
 

@@ -8,13 +8,9 @@ export async function POST() {
   try {
     const cookieStore = await cookies();
 
-    const accessToken = cookieStore.get("accessToken")?.value;
-    const refreshToken = cookieStore.get("refreshToken")?.value;
-    const sessionId = cookieStore.get("sessionId")?.value;
-
     await api.post("auth/logout", null, {
       headers: {
-        Cookie: `accessToken=${accessToken}; refreshToken=${refreshToken}; sessionId=${sessionId}`,
+        Cookie: cookieStore.toString(),
       },
     });
 

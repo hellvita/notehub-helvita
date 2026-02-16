@@ -8,6 +8,7 @@ import {
   updateMe,
   updateAvatar,
   UpdateRequest,
+  deleteMe,
 } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import Loader from "@/components/Loader/Loader";
@@ -24,6 +25,9 @@ import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
 export default function EditProfilePage() {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
+  const clearIsAuthenticated = useAuthStore(
+    (state) => state.clearIsAuthenticated,
+  );
   const [userData, setUserData] = useState<User | null>(null);
   const [userName, setUserName] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
@@ -114,6 +118,30 @@ export default function EditProfilePage() {
 
   const handleCancel = () => router.push("/profile");
 
+  const handleDeleteUser = async () => {
+    const isConfirmed = confirm(
+      "Are you sure you want to delete your account?",
+    );
+
+    if (isConfirmed) {
+      try {
+        const data = await deleteMe();
+
+        toast(data.message);
+
+        clearIsAuthenticated();
+
+        router.push("/sign-in");
+      } catch (error) {
+        toast(
+          (error as Error).message
+            ? (error as Error).message
+            : "Could not delete account, please try again...",
+        );
+      }
+    }
+  };
+
   if (!userData) return <Loader />;
 
   const normalizedEmail = normalizeEmail(userData.email);
@@ -202,6 +230,7 @@ export default function EditProfilePage() {
               <button
                 type="button"
                 className="text-white-950/50 hover:text-pink-400 text-left mobile:text-s18"
+                onClick={handleDeleteUser}
               >
                 Delete account
               </button>

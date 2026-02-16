@@ -43,7 +43,7 @@ export default function EditAvatar({
   }, [error]);
 
   return (
-    <div className="w-full flex justify-between tablet:flex-col-reverse">
+    <div className="w-full flex justify-between">
       <IcButtonResetImg handleResetImg={resetAvatar} />
       <div>
         <input

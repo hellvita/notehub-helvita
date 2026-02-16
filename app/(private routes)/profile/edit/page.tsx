@@ -131,7 +131,7 @@ export default function EditProfilePage() {
       </div>
 
       <div className="flex flex-col gap-10 items-center tablet:flex-row tablet:items-start">
-        <div className="flex max-tablet:flex-col max-tablet:items-center  gap-2 tablet:items-stretch">
+        <div className="flex flex-col max-tablet:items-center  gap-2">
           <UserAvatar imageUrl={avatar} />
           <EditAvatar setAvatar={setAvatarFile} resetAvatar={resetAvatar} />
         </div>
@@ -171,6 +171,7 @@ export default function EditProfilePage() {
                 id="password"
                 type="password"
                 name="password"
+                minLength={6}
                 required={false}
                 onChange={handleChange}
                 hint="Enter new password"

@@ -150,7 +150,7 @@ export default function LoginPage() {
           href="/sign-up"
           className="text-yellow-500 hover:text-white-950 focus:text-white-950 transition-colors duration-300"
         >
-          Create an account.
+          Create an account
         </Link>
       </p>
     </AuthForm>

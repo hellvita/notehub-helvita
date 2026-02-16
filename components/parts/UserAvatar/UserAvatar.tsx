@@ -5,10 +5,12 @@ interface UserAvatarProps {
   imageUrl?: string;
 }
 
+const defaultAvatar = process.env.DEFAULT_AVATAR;
+
 export default function UserAvatar({ imageUrl }: UserAvatarProps) {
   return (
     <Image
-      src={imageUrl || getProfilePicture()}
+      src={imageUrl || defaultAvatar || getProfilePicture()}
       alt="user profile picture"
       width={140}
       height={140}

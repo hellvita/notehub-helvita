@@ -67,6 +67,7 @@ export default function EditProfilePage() {
       const res = await updateMe({
         email: newUserData?.email ? newUserData.email : "",
         username: userName,
+        avatar,
       });
       setUser(res);
 
@@ -83,7 +84,7 @@ export default function EditProfilePage() {
       router.push("/profile");
     } catch (error) {
       toast(
-        error
+        (error as Error).message
           ? (error as Error).message
           : "Could not update profile, please try again...",
       );

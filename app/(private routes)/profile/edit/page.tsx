@@ -12,7 +12,6 @@ import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import FormInput from "@/components/parts/FormInput/FormInput";
-import Link from "next/link";
 import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
 import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
@@ -24,6 +23,7 @@ export default function EditProfilePage() {
   const [userName, setUserName] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
+  const [advancedIsOpen, setAdvancedIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -130,7 +130,7 @@ export default function EditProfilePage() {
         />
       </div>
 
-      <div className="flex flex-col gap-10 items-center tablet:flex-row">
+      <div className="flex flex-col gap-10 items-center tablet:flex-row tablet:items-start">
         <div className="flex max-tablet:flex-col max-tablet:items-center  gap-2 tablet:items-stretch">
           <UserAvatar imageUrl={avatar} />
           <EditAvatar setAvatar={setAvatarFile} resetAvatar={resetAvatar} />
@@ -144,7 +144,7 @@ export default function EditProfilePage() {
             name="username"
             defaultValue={newUserData.username}
             onChange={handleChange}
-            hint="Username"
+            hint="Enter username"
             twStylesLabel="text-pink-400 mobile:text-s24"
             twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
           />
@@ -155,15 +155,37 @@ export default function EditProfilePage() {
             twStylesLabel="text-pink-400 mobile:text-s24"
           />
 
-          <Link
-            href="/profile/edit/advanced"
+          <p
             className="group/advanced mobile:text-s20 hover:text-pink-400 transition-color duration-200 mt-5"
+            onClick={() => setAdvancedIsOpen((v) => !v)}
           >
-            {"> "}
+            {advancedIsOpen ? <span>{"v "}</span> : <span>{"> "}</span>}
             <span className="border-b transition-all duration-300 group-hover/advanced:border-transparent">
               Advanced settings
             </span>
-          </Link>
+          </p>
+          {advancedIsOpen && (
+            <>
+              <FormInput
+                label="Change password"
+                id="password"
+                type="password"
+                name="password"
+                required={false}
+                onChange={handleChange}
+                hint="Enter new password"
+                twStylesLabel="text-pink-400 mobile:text-s24"
+                twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
+              />
+
+              <button
+                type="button"
+                className="text-white-950/50 hover:text-pink-400 text-left mobile:text-s18"
+              >
+                Delete account
+              </button>
+            </>
+          )}
         </div>
       </div>
 

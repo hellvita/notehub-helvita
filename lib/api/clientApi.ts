@@ -29,7 +29,7 @@ interface CheckSessionRequest {
   success: boolean;
 }
 
-interface UpdateRequest {
+export interface UpdateRequest {
   email: string;
   username: string;
   avatar?: string;

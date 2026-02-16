@@ -3,7 +3,12 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/authStore";
-import { getMe, updateMe, updateAvatar } from "@/lib/api/clientApi";
+import {
+  getMe,
+  updateMe,
+  updateAvatar,
+  UpdateRequest,
+} from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import Loader from "@/components/Loader/Loader";
 import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
@@ -19,18 +24,21 @@ import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
 export default function EditProfilePage() {
   const router = useRouter();
   const setUser = useAuthStore((state) => state.setUser);
-  const [newUserData, setNewUserData] = useState<User | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const [userName, setUserName] = useState<string>("");
   const [avatar, setAvatar] = useState<string>("");
   const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
   const [advancedIsOpen, setAdvancedIsOpen] = useState<boolean>(false);
+  const [userPassword, setUserPassword] = useState<string | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const data = await getMe();
 
-        setNewUserData(data);
+        setUserData(data);
         setUserName(data.username);
         setAvatar(data.avatar);
       } catch {
@@ -57,19 +65,31 @@ export default function EditProfilePage() {
     setAvatar(DEFAULT_AVATAR);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(event.target.value);
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserPassword(event.target.value);
   };
 
   const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const res = await updateMe({
-        email: newUserData?.email ? newUserData.email : "",
+      const newData: UpdateRequest = {
+        email: userData?.email ? userData.email : "",
         username: userName,
-        avatar,
-      });
+      };
+
+      if (avatar !== "") {
+        newData.avatar = avatar;
+      }
+      if (userPassword) {
+        newData.password = userPassword;
+      }
+
+      const res = await updateMe(newData);
       setUser(res);
 
       if (avatarFile) {
@@ -82,7 +102,7 @@ export default function EditProfilePage() {
         setUser(res);
       }
 
-      router.push("/profile");
+      toast("Your profile was successfully updated!");
     } catch (error) {
       toast(
         (error as Error).message
@@ -94,9 +114,9 @@ export default function EditProfilePage() {
 
   const handleCancel = () => router.push("/profile");
 
-  if (!newUserData) return <Loader />;
+  if (!userData) return <Loader />;
 
-  const normalizedEmail = normalizeEmail(newUserData.email);
+  const normalizedEmail = normalizeEmail(userData.email);
 
   return (
     <form
@@ -142,8 +162,8 @@ export default function EditProfilePage() {
             id="username"
             type="text"
             name="username"
-            defaultValue={newUserData.username}
-            onChange={handleChange}
+            defaultValue={userData.username}
+            onChange={handleUsernameChange}
             hint="Enter username"
             twStylesLabel="text-pink-400 mobile:text-s24"
             twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
@@ -173,7 +193,7 @@ export default function EditProfilePage() {
                 name="password"
                 minLength={6}
                 required={false}
-                onChange={handleChange}
+                onChange={handlePasswordChange}
                 hint="Enter new password"
                 twStylesLabel="text-pink-400 mobile:text-s24"
                 twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"

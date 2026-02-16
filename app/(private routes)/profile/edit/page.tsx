@@ -12,6 +12,7 @@ import ButtonText from "@/components/parts/ButtonText/ButtonText";
 import { FaArrowLeftLong as IconBack } from "react-icons/fa6";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import FormInput from "@/components/parts/FormInput/FormInput";
+import Link from "next/link";
 import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
 import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
@@ -147,11 +148,22 @@ export default function EditProfilePage() {
             twStylesLabel="text-pink-400 mobile:text-s24"
             twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
           />
+
           <UserInfo
             label="Email"
             value={normalizedEmail}
             twStylesLabel="text-pink-400 mobile:text-s24"
           />
+
+          <Link
+            href="/profile/edit/advanced"
+            className="group/advanced mobile:text-s20 hover:text-pink-400 transition-color duration-200 mt-5"
+          >
+            {"> "}
+            <span className="border-b transition-all duration-300 group-hover/advanced:border-transparent">
+              Advanced settings
+            </span>
+          </Link>
         </div>
       </div>
 

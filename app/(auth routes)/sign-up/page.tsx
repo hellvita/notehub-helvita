@@ -2,6 +2,7 @@
 
 import { useReducer, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { register } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { AxiosError } from "axios";
@@ -78,17 +79,9 @@ export default function RegisterPage() {
     });
   };
 
-  const handleSubmit = async () => {
-    try {
-      if (values.password !== values.confirm) {
-        return dispatch({ type: "SET_ERROR", message: "Passwords must match" });
-      }
-
-      const res = await register({
-        email: values.email,
-        password: values.password,
-      });
-
+  const { mutate, isPending } = useMutation({
+    mutationFn: register,
+    onSuccess: (res) => {
       if (res) {
         setUser(res);
 
@@ -101,8 +94,10 @@ export default function RegisterPage() {
           message: "This email is already in use",
         });
       }
-    } catch (error) {
+    },
+    onError: (error) => {
       const errorCode = (error as AxiosError).response?.status.toString() ?? "";
+
       const errorMessage =
         errorCode === "400"
           ? "Invalid email or password"
@@ -114,7 +109,21 @@ export default function RegisterPage() {
         type: "SET_ERROR",
         message: errorMessage,
       });
+    },
+  });
+
+  const handleSubmit = () => {
+    if (values.password !== values.confirm) {
+      return dispatch({
+        type: "SET_ERROR",
+        message: "Passwords must match",
+      });
     }
+
+    mutate({
+      email: values.email,
+      password: values.password,
+    });
   };
 
   return (
@@ -153,8 +162,9 @@ export default function RegisterPage() {
 
       <ButtonText
         type="submit"
-        text="Register"
+        text={isPending ? "Loading..." : "Register"}
         twStyles="p-3.5 min-w-0 my-0 mb-10 mx-auto block w-full tablet:max-w-58 text-green-200 mobile:text-s20 tablet-big:text-s24 font-medium border cursor-pointer"
+        isLoading={isPending}
       />
 
       <p className="text-white-400 mobile:text-s16 tablet:text-s20 text-center max-tablet:flex max-tablet:flex-col max-tablet:gap-1">

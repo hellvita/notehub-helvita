@@ -35,7 +35,7 @@ export default function ButtonBack({
       text="Back"
       handler={handleBack}
       type="button"
-      twStyles="max-tablet-big:hidden max-w-19 border text-white-950/90 border-white-950/30 px-5"
+      twStyles="max-tablet-big:hidden max-w-19 border text-white-950/90 border-white-950/30 px-5 selection:text-blue-400 selection:bg-blue-400-12"
       bgColorHover="var(--color-black-900)"
       borderColorHover="var(--color-blue-400)"
       textColorHover="var(--color-blue-400)"

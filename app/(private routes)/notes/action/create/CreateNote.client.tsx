@@ -15,7 +15,9 @@ export default function CreateNoteClient() {
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     setDraft({ ...draft, [event.target.name]: event.target.value });
   };
@@ -33,11 +35,13 @@ export default function CreateNoteClient() {
 
   const handleSubmit = (formData: FormData) => {
     const rawValues = Object.fromEntries(formData);
+
     const values: NewNote = {
       title: String(rawValues.title),
       content: String(rawValues.content),
       tag: String(rawValues.tag) as NoteTag,
     };
+
     mutate(values);
   };
 

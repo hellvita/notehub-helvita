@@ -33,13 +33,6 @@ export const normalizeUsername = (username: string): string => {
   return `${normValue}...`;
 };
 
-export const getProfilePicture = (): string => {
-  const number = getRandomInt(1, 4);
-  const path = `/default-${number}.svg`;
-
-  return path;
-};
-
 export const sliceContent = (text: string): string => {
   if (typeof text !== "string") {
     return "";

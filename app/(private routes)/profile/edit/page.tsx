@@ -20,7 +20,7 @@ import UserInfo from "@/components/parts/UserInfo/UserInfo";
 import FormInput from "@/components/parts/FormInput/FormInput";
 import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
-import { DEFAULT_AVATAR } from "../../../../lib/constants/defaultFiles";
+import { DEFAULT_AVATAR } from "@/types/user";
 
 export default function EditProfilePage() {
   const router = useRouter();

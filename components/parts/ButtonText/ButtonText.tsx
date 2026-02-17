@@ -11,38 +11,53 @@ interface ButtonTextProps {
   bgColorHover?: string;
   borderColorHover?: string;
   type?: "button" | "submit" | "reset" | undefined;
+  isLoading?: boolean;
 }
 
 export default function ButtonText({
   text,
   handler,
-  twStyles = "px-5 text-green-200 text-s16 font-normal border cursor-pointer",
+  twStyles = "px-5 text-green-200 text-s16 font-normal border",
   twStylesAdditional = "",
   textColorHover = "var(--color-black-900)",
   bgColorHover = "var(--color-green-200)",
   borderColorHover = "var(--color-green-200)",
   type = "button",
+  isLoading = false,
 }: ButtonTextProps) {
   return (
     <motion.button
       onClick={handler}
       type={type}
-      className={`${twStyles} ${twStylesAdditional}`}
-      whileHover={{
-        color: textColorHover,
-        backgroundColor: bgColorHover,
-        borderColor: borderColorHover,
-      }}
-      whileFocus={{
-        color: textColorHover,
-        backgroundColor: bgColorHover,
-        borderColor: borderColorHover,
-      }}
-      whileTap={{
-        color: textColorHover,
-        backgroundColor: bgColorHover,
-        borderColor: borderColorHover,
-      }}
+      disabled={isLoading}
+      className={`${twStyles} ${twStylesAdditional} ${isLoading ? "cursor-none" : "cursor-pointer"}`}
+      whileHover={
+        isLoading
+          ? {}
+          : {
+              color: textColorHover,
+              backgroundColor: bgColorHover,
+              borderColor: borderColorHover,
+            }
+      }
+      whileFocus={
+        isLoading
+          ? {}
+          : {
+              color: textColorHover,
+              backgroundColor: bgColorHover,
+              borderColor: borderColorHover,
+            }
+      }
+      whileTap={
+        isLoading
+          ? {}
+          : {
+              color: textColorHover,
+              backgroundColor: bgColorHover,
+              borderColor: borderColorHover,
+            }
+      }
       transition={{ duration: 0.3 }}
     >
       {text}

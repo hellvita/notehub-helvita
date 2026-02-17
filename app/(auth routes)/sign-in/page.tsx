@@ -2,6 +2,7 @@
 
 import { useReducer, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { login } from "@/lib/api/clientApi";
 import { useAuthStore } from "@/lib/store/authStore";
 import { AxiosError } from "axios";
@@ -77,13 +78,9 @@ export default function LoginPage() {
     });
   };
 
-  const handleSubmit = async () => {
-    try {
-      const res = await login({
-        email: values.email,
-        password: values.password,
-      });
-
+  const { mutate, isPending } = useMutation({
+    mutationFn: login,
+    onSuccess: (res) => {
       if (res) {
         setUser(res);
 
@@ -93,8 +90,10 @@ export default function LoginPage() {
       } else {
         dispatch({ type: "SET_ERROR", message: "Invalid email or password" });
       }
-    } catch (error) {
+    },
+    onError: (error) => {
       const errorCode = (error as AxiosError).response?.status.toString() ?? "";
+
       const errorMessage =
         errorCode === "400" || errorCode === "401"
           ? "Invalid email or password"
@@ -104,8 +103,14 @@ export default function LoginPage() {
         type: "SET_ERROR",
         message: errorMessage,
       });
-    }
-  };
+    },
+  });
+
+  const handleSubmit = () =>
+    mutate({
+      email: values.email,
+      password: values.password,
+    });
 
   return (
     <AuthForm
@@ -138,10 +143,11 @@ export default function LoginPage() {
 
       <ButtonText
         type="submit"
-        text="Log In"
-        twStyles="p-3.5 min-w-0 my-0 mb-10 mx-auto block w-full tablet:max-w-58 text-yellow-500 mobile:text-s20 tablet-big:text-s24 font-medium border cursor-pointer"
+        text={isPending ? "Loading..." : "Log In"}
+        twStyles={`p-3.5 min-w-0 my-0 mb-10 mx-auto block w-full tablet:max-w-58 text-yellow-500 mobile:text-s20 tablet-big:text-s24 font-medium border`}
         bgColorHover="var(--color-yellow-500)"
         borderColorHover="var(--color-yellow-500)"
+        isLoading={isPending}
       />
 
       <p className="text-white-400 mobile:text-s16 tablet:text-s20 text-center max-tablet:flex max-tablet:flex-col max-tablet:gap-1">

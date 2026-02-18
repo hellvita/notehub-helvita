@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
 import {
   getMe,
@@ -75,23 +76,9 @@ export default function EditProfilePage() {
     setUserPassword(event.target.value);
   };
 
-  const handleSave = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    try {
-      const newData: UpdateRequest = {
-        email: userData?.email ? userData.email : "",
-        username: userName,
-      };
-
-      if (avatar !== "") {
-        newData.avatar = avatar;
-      }
-      if (userPassword !== "") {
-        newData.password = userPassword;
-      }
-
-      const res = await updateMe(newData);
+  const { mutate, isPending } = useMutation({
+    mutationFn: updateMe,
+    onSuccess: async (res) => {
       setUser(res);
 
       if (avatarFile) {
@@ -109,13 +96,32 @@ export default function EditProfilePage() {
       if (userPassword !== "") {
         setUserPassword("");
       }
-    } catch (error) {
+    },
+    onError: (error) => {
       toast(
         (error as Error).message
           ? (error as Error).message
           : "Could not update profile, please try again...",
       );
+    },
+  });
+
+  const handleSave = async (event: React.SubmitEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const newData: UpdateRequest = {
+      email: userData?.email ? userData.email : "",
+      username: userName,
+    };
+
+    if (avatar !== "") {
+      newData.avatar = avatar;
     }
+    if (userPassword !== "") {
+      newData.password = userPassword;
+    }
+
+    mutate(newData);
   };
 
   const handleCancel = () => router.push("/profile");
@@ -172,9 +178,10 @@ export default function EditProfilePage() {
 
         <ButtonText
           type="submit"
-          text="Save"
+          text={isPending ? "Saving..." : "Save"}
           handler={() => {}}
-          twStyles="py-2 px-3 max-w-22 max-h-11.5 text-pink-400 text-s28 font-medium border cursor-pointer max-tablet:hidden"
+          isLoading={isPending}
+          twStyles="py-2 px-3  max-h-11.5 text-pink-400 text-s28 font-medium border max-tablet:hidden"
           bgColorHover="var(--color-pink-400)"
           borderColorHover="var(--color-pink-400)"
         />
@@ -244,9 +251,10 @@ export default function EditProfilePage() {
 
       <ButtonText
         type="submit"
-        text="Save"
+        text={isPending ? "Saving..." : "Save"}
         handler={() => {}}
-        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full text-pink-400 mobile:text-s20 font-medium border cursor-pointer tablet:hidden"
+        isLoading={isPending}
+        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full text-pink-400 mobile:text-s20 font-medium border  tablet:hidden"
         bgColorHover="var(--color-pink-400)"
         borderColorHover="var(--color-pink-400)"
       />

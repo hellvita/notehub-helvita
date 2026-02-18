@@ -30,7 +30,7 @@ export default function ButtonText({
       onClick={handler}
       type={type}
       disabled={isLoading}
-      className={`${twStyles} ${twStylesAdditional} ${isLoading ? "cursor-none" : "cursor-pointer"}`}
+      className={`${twStyles} ${twStylesAdditional} ${isLoading ? "pointer-events-none" : "cursor-pointer"}`}
       whileHover={
         isLoading
           ? {}

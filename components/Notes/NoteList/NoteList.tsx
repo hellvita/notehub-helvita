@@ -13,7 +13,9 @@ interface NoteListProps {
 
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
-  const { decreaseNoteAmount } = useNoteCountStore();
+  const decreaseNoteAmount = useNoteCountStore(
+    (state) => state.decreaseNoteAmount,
+  );
 
   const mutation = useMutation({
     mutationFn: async (id: string) => deleteNote(id),

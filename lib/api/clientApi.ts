@@ -30,10 +30,11 @@ interface CheckSessionRequest {
 }
 
 export interface UpdateRequest {
-  email: string;
-  username: string;
+  email?: string;
+  username?: string;
   avatar?: string;
   password?: string;
+  notesAmount?: number;
 }
 
 export const register = async (userData: RegisterRequest): Promise<User> => {

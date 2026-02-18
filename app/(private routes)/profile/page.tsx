@@ -38,7 +38,7 @@ export default async function ProfilePage() {
   const normalizedEmail = normalizeEmail(user.email);
 
   return (
-    <ProfilePageClient>
+    <ProfilePageClient user={user}>
       <div className="py-12 px-5 tablet:px-10 bg-black-800">
         <div className="mb-10 flex justify-between items-center">
           <h1 className="mobile:text-s32 tablet:text-s40 desktop:text-s56 font-medium">

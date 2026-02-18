@@ -5,6 +5,7 @@ import { deleteNote } from "@/lib/api/clientApi";
 import toast from "react-hot-toast";
 import NoteCard from "../Note/NoteCard";
 import { Note } from "@/types/note";
+import { useNoteCountStore } from "@/lib/store/noteStore";
 
 interface NoteListProps {
   notes: Note[];
@@ -12,11 +13,15 @@ interface NoteListProps {
 
 export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
+  const { decreaseNoteAmount } = useNoteCountStore();
 
   const mutation = useMutation({
     mutationFn: async (id: string) => deleteNote(id),
     onSuccess: (deletedNote) => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+
+      decreaseNoteAmount();
+
       toast(`The '${deletedNote.title}' note has been deleted!`);
     },
     onError: () => toast("Could not delete note, please try again..."),

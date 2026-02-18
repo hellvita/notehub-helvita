@@ -2,6 +2,7 @@ export interface User {
   email: string;
   username: string;
   avatar: string;
+  notesAmount: number;
 }
 
 export const DEFAULT_AVATAR: string =

@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { NewNote, NoteTag } from "@/types/note";
 import { createNote } from "@/lib/api/clientApi";
-import { useNoteDraftStore } from "@/lib/store/noteStore";
+import { useNoteDraftStore, useNoteCountStore } from "@/lib/store/noteStore";
 import toast from "react-hot-toast";
 import NoteForm from "@/components/NoteForm/NoteForm";
 
 export default function CreateNoteClient() {
   const router = useRouter();
+  const { LIMIT, count, increaseNoteAmount } = useNoteCountStore();
 
   const queryClient = useQueryClient();
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
@@ -26,23 +27,32 @@ export default function CreateNoteClient() {
     mutationFn: createNote,
     onSuccess: (newNote) => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
+
       toast(`The '${newNote.title}' note has been added!`);
+
       clearDraft();
+
+      increaseNoteAmount();
+
       router.push("/notes/filter/all");
     },
     onError: () => toast("Could not save changes, please try again..."),
   });
 
   const handleSubmit = (formData: FormData) => {
-    const rawValues = Object.fromEntries(formData);
+    if (count >= LIMIT) {
+      toast(`You have reached limit in ${LIMIT} notes!`);
+    } else {
+      const rawValues = Object.fromEntries(formData);
 
-    const values: NewNote = {
-      title: String(rawValues.title),
-      content: String(rawValues.content),
-      tag: String(rawValues.tag) as NoteTag,
-    };
+      const values: NewNote = {
+        title: String(rawValues.title),
+        content: String(rawValues.content),
+        tag: String(rawValues.tag) as NoteTag,
+      };
 
-    mutate(values);
+      mutate(values);
+    }
   };
 
   return (

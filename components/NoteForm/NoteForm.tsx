@@ -53,7 +53,7 @@ export default function NoteForm({
             defaultValue={note ? note.title : draft ? draft.title : undefined}
             rows={1}
             required
-            minLength={3}
+            minLength={1}
             maxLength={50}
             onChange={handleChange}
             className="text-center tablet-big:text-left w-[80%] tablet:w-[84%] tablet-big:w-full mobile:text-s28 tablet-big:text-s24 font-medium placeholder:text-white-950/50 resize-none field-sizing-content overflow-hidden outline-none selection:text-blue-400 selection:bg-blue-400-12"

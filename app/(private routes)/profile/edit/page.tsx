@@ -33,9 +33,7 @@ export default function EditProfilePage() {
   const [avatar, setAvatar] = useState<string>("");
   const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
   const [advancedIsOpen, setAdvancedIsOpen] = useState<boolean>(false);
-  const [userPassword, setUserPassword] = useState<string | undefined>(
-    undefined,
-  );
+  const [userPassword, setUserPassword] = useState<string>("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -89,7 +87,7 @@ export default function EditProfilePage() {
       if (avatar !== "") {
         newData.avatar = avatar;
       }
-      if (userPassword) {
+      if (userPassword !== "") {
         newData.password = userPassword;
       }
 
@@ -107,6 +105,10 @@ export default function EditProfilePage() {
       }
 
       toast("Your profile was successfully updated!");
+
+      if (userPassword !== "") {
+        setUserPassword("");
+      }
     } catch (error) {
       toast(
         (error as Error).message
@@ -221,6 +223,7 @@ export default function EditProfilePage() {
                 name="password"
                 minLength={6}
                 required={false}
+                value={userPassword}
                 onChange={handlePasswordChange}
                 hint="Enter new password"
                 twStylesLabel="text-pink-400 mobile:text-s24"

@@ -132,3 +132,15 @@ export const deleteNote = async (id: string): Promise<Note> => {
 
   return data;
 };
+
+export const fetchDraft = async (): Promise<Note> => {
+  const { data } = await nextServer.get<Note>("note-draft");
+
+  return data;
+};
+
+export const updateDraft = async (updatedNote: UpdatedNote): Promise<Note> => {
+  const { data } = await nextServer.patch<Note>("note-draft", updatedNote.body);
+
+  return data;
+};

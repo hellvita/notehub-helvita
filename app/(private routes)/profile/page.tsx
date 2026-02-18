@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getMe } from "@/lib/api/serverApi";
+import { getMe, fetchDraft } from "@/lib/api/serverApi";
 import UserAvatar from "@/components/parts/UserAvatar/UserAvatar";
 import ButtonLink from "@/components/parts/ButtonLink/ButtonLink";
 import UserInfo from "@/components/parts/UserInfo/UserInfo";
@@ -34,11 +34,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ProfilePage() {
   const user = await getMe();
+  const draft = await fetchDraft();
 
   const normalizedEmail = normalizeEmail(user.email);
 
   return (
-    <ProfilePageClient user={user}>
+    <ProfilePageClient user={user} draft={draft}>
       <div className="py-12 px-5 tablet:px-10 bg-black-800">
         <div className="mb-10 flex justify-between items-center">
           <h1 className="mobile:text-s32 tablet:text-s40 desktop:text-s56 font-medium">

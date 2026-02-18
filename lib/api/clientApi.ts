@@ -139,8 +139,8 @@ export const fetchDraft = async (): Promise<Note> => {
   return data;
 };
 
-export const updateDraft = async (updatedNote: UpdatedNote): Promise<Note> => {
-  const { data } = await nextServer.patch<Note>("note-draft", updatedNote.body);
+export const updateDraft = async (draftNote: NewNote): Promise<Note> => {
+  const { data } = await nextServer.patch<Note>("note-draft", draftNote);
 
   return data;
 };

@@ -79,6 +79,10 @@ export default function NotesClient({ currentTag, user }: NotesClientProps) {
         <NoResultMessage invalidQuery={searchQuery} />
       )}
 
+      {isSuccess && data.notes.length === 0 && searchQuery == "" && (
+        <NoResultMessage />
+      )}
+
       {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
 
       {isSuccess && totalPages > 1 && (

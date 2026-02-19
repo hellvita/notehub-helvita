@@ -22,6 +22,7 @@ import FormInput from "@/components/parts/FormInput/FormInput";
 import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
 import { DEFAULT_AVATAR } from "@/types/user";
+import ConfirmWindow from "@/components/ConfirmWindow/ConfirmWindow";
 
 interface ProfileState {
   userData: User | null;
@@ -30,6 +31,7 @@ interface ProfileState {
   avatarUrl: string;
   avatarFile: File | undefined;
   advancedIsOpen: boolean;
+  isConfirmWindow: boolean;
 }
 
 type ProfileAction =
@@ -41,7 +43,8 @@ type ProfileAction =
   | { type: "SET_AVATAR_FILE"; payload: File }
   | { type: "SET_USER_NAME"; payload: string }
   | { type: "SET_USER_PASSWORD"; payload: string }
-  | { type: "TOGGLE_ADVANCED" };
+  | { type: "TOGGLE_ADVANCED" }
+  | { type: "TOGGLE_CONFIRM_WINDOW" };
 
 const profileReducer = (
   state: ProfileState,
@@ -71,6 +74,9 @@ const profileReducer = (
     case "TOGGLE_ADVANCED": {
       return { ...state, advancedIsOpen: !state.advancedIsOpen };
     }
+    case "TOGGLE_CONFIRM_WINDOW": {
+      return { ...state, isConfirmWindow: !state.isConfirmWindow };
+    }
     default: {
       return state;
     }
@@ -92,6 +98,7 @@ export default function EditProfilePage() {
     avatarUrl: "",
     avatarFile: undefined,
     advancedIsOpen: false,
+    isConfirmWindow: false,
   });
   const {
     avatarUrl,
@@ -100,6 +107,7 @@ export default function EditProfilePage() {
     userName,
     userPassword,
     advancedIsOpen,
+    isConfirmWindow,
   } = state;
 
   useEffect(() => {
@@ -193,27 +201,27 @@ export default function EditProfilePage() {
 
   const handleCancel = () => router.push("/profile");
 
+  const toggleConfirmWindow = () => {
+    dispatch({ type: "TOGGLE_CONFIRM_WINDOW" });
+  };
+
   const handleDeleteUser = async () => {
-    const isConfirmed = confirm(
-      "Are you sure you want to delete your account?",
-    );
+    toggleConfirmWindow();
 
-    if (isConfirmed) {
-      try {
-        const data = await deleteMe();
+    try {
+      const data = await deleteMe();
 
-        toast(data.message);
+      toast(data.message);
 
-        clearIsAuthenticated();
+      clearIsAuthenticated();
 
-        router.push("/sign-in");
-      } catch (error) {
-        toast(
-          (error as Error).message
-            ? (error as Error).message
-            : "Could not delete account, please try again...",
-        );
-      }
+      router.push("/sign-in");
+    } catch (error) {
+      toast(
+        (error as Error).message
+          ? (error as Error).message
+          : "Could not delete account, please try again...",
+      );
     }
   };
 
@@ -222,25 +230,104 @@ export default function EditProfilePage() {
   const normalizedEmail = normalizeEmail(userData.email);
 
   return (
-    <form
-      className="py-12 px-5 tablet:px-10 bg-black-800 border-t-pink-400 border-t-3"
-      onSubmit={handleSave}
-    >
-      <div className="mb-10 flex items-center tablet:justify-between">
-        <div className="flex gap-10 items-center ">
-          <button
-            onClick={handleCancel}
-            type="button"
-            className="group p-3 cursor-pointer"
-          >
-            <IconBack
-              className="group-hover:fill-pink-400/88 transition-colors duration-300 text-s20 tablet:text-s28"
-              aria-label="go back"
+    <>
+      <form
+        className="py-12 px-5 tablet:px-10 bg-black-800 border-t-pink-400 border-t-3"
+        onSubmit={handleSave}
+      >
+        <div className="mb-10 flex items-center tablet:justify-between">
+          <div className="flex gap-10 items-center ">
+            <button
+              onClick={handleCancel}
+              type="button"
+              className="group p-3 cursor-pointer"
+            >
+              <IconBack
+                className="group-hover:fill-pink-400/88 transition-colors duration-300 text-s20 tablet:text-s28"
+                aria-label="go back"
+              />
+            </button>
+            <h1 className="mobile:text-s32 tablet:text-s40 desktop:text-s56 font-medium">
+              Edit Page
+            </h1>
+          </div>
+
+          <ButtonText
+            type="submit"
+            text={isPending ? "Saving..." : "Save"}
+            handler={() => {}}
+            isLoading={isPending}
+            twStyles="py-2 px-3  max-h-11.5 text-pink-400 text-s28 font-medium border max-tablet:hidden"
+            bgColorHover="var(--color-pink-400)"
+            borderColorHover="var(--color-pink-400)"
+          />
+        </div>
+
+        <div className="flex flex-col gap-10 items-center tablet:flex-row tablet:items-start">
+          <div className="flex flex-col max-tablet:items-center  gap-2">
+            <UserAvatar imageUrl={avatarUrl} />
+            <EditAvatar
+              setAvatar={(file) =>
+                dispatch({ type: "SET_AVATAR_FILE", payload: file })
+              }
+              resetAvatar={resetAvatar}
             />
-          </button>
-          <h1 className="mobile:text-s32 tablet:text-s40 desktop:text-s56 font-medium">
-            Edit Page
-          </h1>
+          </div>
+
+          <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
+            <FormInput
+              label="Username"
+              id="username"
+              type="text"
+              name="username"
+              defaultValue={userData.username}
+              onChange={handleUsernameChange}
+              hint="Enter username"
+              twStylesLabel="text-pink-400 mobile:text-s24"
+              twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
+            />
+
+            <UserInfo
+              label="Email"
+              value={normalizedEmail}
+              twStylesLabel="text-pink-400 mobile:text-s24"
+            />
+
+            <p
+              className="group/advanced mobile:text-s20 hover:text-pink-400 transition-color duration-200 mt-5"
+              onClick={() => dispatch({ type: "TOGGLE_ADVANCED" })}
+            >
+              {advancedIsOpen ? <span>{"v "}</span> : <span>{"> "}</span>}
+              <span className="border-b transition-all duration-300 group-hover/advanced:border-transparent">
+                Advanced settings
+              </span>
+            </p>
+            {advancedIsOpen && (
+              <>
+                <FormInput
+                  label="Change password"
+                  id="password"
+                  type="password"
+                  name="password"
+                  minLength={6}
+                  required={false}
+                  value={userPassword}
+                  onChange={handlePasswordChange}
+                  hint="Enter new password"
+                  twStylesLabel="text-pink-400 mobile:text-s24"
+                  twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
+                />
+
+                <button
+                  type="button"
+                  className="text-white-950/50 hover:text-pink-400 text-left mobile:text-s18"
+                  onClick={toggleConfirmWindow}
+                >
+                  Delete account
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         <ButtonText
@@ -248,88 +335,21 @@ export default function EditProfilePage() {
           text={isPending ? "Saving..." : "Save"}
           handler={() => {}}
           isLoading={isPending}
-          twStyles="py-2 px-3  max-h-11.5 text-pink-400 text-s28 font-medium border max-tablet:hidden"
+          twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full text-pink-400 mobile:text-s20 font-medium border  tablet:hidden"
           bgColorHover="var(--color-pink-400)"
           borderColorHover="var(--color-pink-400)"
         />
-      </div>
+      </form>
 
-      <div className="flex flex-col gap-10 items-center tablet:flex-row tablet:items-start">
-        <div className="flex flex-col max-tablet:items-center  gap-2">
-          <UserAvatar imageUrl={avatarUrl} />
-          <EditAvatar
-            setAvatar={(file) =>
-              dispatch({ type: "SET_AVATAR_FILE", payload: file })
-            }
-            resetAvatar={resetAvatar}
-          />
-        </div>
-
-        <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
-          <FormInput
-            label="Username"
-            id="username"
-            type="text"
-            name="username"
-            defaultValue={userData.username}
-            onChange={handleUsernameChange}
-            hint="Enter username"
-            twStylesLabel="text-pink-400 mobile:text-s24"
-            twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
-          />
-
-          <UserInfo
-            label="Email"
-            value={normalizedEmail}
-            twStylesLabel="text-pink-400 mobile:text-s24"
-          />
-
-          <p
-            className="group/advanced mobile:text-s20 hover:text-pink-400 transition-color duration-200 mt-5"
-            onClick={() => dispatch({ type: "TOGGLE_ADVANCED" })}
-          >
-            {advancedIsOpen ? <span>{"v "}</span> : <span>{"> "}</span>}
-            <span className="border-b transition-all duration-300 group-hover/advanced:border-transparent">
-              Advanced settings
-            </span>
-          </p>
-          {advancedIsOpen && (
-            <>
-              <FormInput
-                label="Change password"
-                id="password"
-                type="password"
-                name="password"
-                minLength={6}
-                required={false}
-                value={userPassword}
-                onChange={handlePasswordChange}
-                hint="Enter new password"
-                twStylesLabel="text-pink-400 mobile:text-s24"
-                twStylesInput="py-2 px-4 outline-0 mobile:text-s28 placeholder:font-light placeholder:text-white-400/50"
-              />
-
-              <button
-                type="button"
-                className="text-white-950/50 hover:text-pink-400 text-left mobile:text-s18"
-                onClick={handleDeleteUser}
-              >
-                Delete account
-              </button>
-            </>
-          )}
-        </div>
-      </div>
-
-      <ButtonText
-        type="submit"
-        text={isPending ? "Saving..." : "Save"}
-        handler={() => {}}
-        isLoading={isPending}
-        twStyles="p-3.5 min-w-0 my-0 mx-auto block w-full text-pink-400 mobile:text-s20 font-medium border  tablet:hidden"
-        bgColorHover="var(--color-pink-400)"
-        borderColorHover="var(--color-pink-400)"
-      />
-    </form>
+      {isConfirmWindow && (
+        <ConfirmWindow
+          question="Delete account?"
+          yes="Delete"
+          no="Cancel"
+          handleNo={toggleConfirmWindow}
+          handleYes={handleDeleteUser}
+        />
+      )}
+    </>
   );
 }

@@ -14,13 +14,15 @@ import Pagination from "@/components/Notes/Pagination/Pagination";
 import CreateButtonMobile from "@/components/Notes/CreateButtonMobile/CreateButtonMobile";
 import { NoteTag, TAG_TYPES } from "@/types/note";
 import { useNoteCountStore } from "@/lib/store/noteStore";
+import { User } from "@/types/user";
 import toast from "react-hot-toast";
 
 interface NotesClientProps {
   currentTag?: NoteTag;
+  user: User;
 }
 
-export default function NotesClient({ currentTag }: NotesClientProps) {
+export default function NotesClient({ currentTag, user }: NotesClientProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const { LIMIT, count } = useNoteCountStore();
@@ -31,7 +33,7 @@ export default function NotesClient({ currentTag }: NotesClientProps) {
   if (!isValidRoute(currentTag)) notFound();
 
   const { data, isSuccess } = useQuery({
-    queryKey: ["notes", currentPage, searchQuery, currentTag],
+    queryKey: ["notes", currentPage, searchQuery, currentTag, user.email],
     queryFn: () =>
       fetchNotes({
         page: currentPage,

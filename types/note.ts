@@ -21,6 +21,7 @@ export interface UpdatedNote {
 export type NoteTag = (typeof TAG_TYPES)[number];
 
 export const TAG_TYPES = [
+  "Todo",
   "Work",
   "Personal",
   "Meeting",
@@ -30,5 +31,4 @@ export const TAG_TYPES = [
   "Finance",
   "Health",
   "Important",
-  "Todo",
 ] as const;

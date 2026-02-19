@@ -8,6 +8,7 @@ interface ConfirmWindowProps {
   warning?: string;
   handleYes: () => void;
   handleNo: () => void;
+  overlay?: boolean;
 }
 
 export default function ConfirmWindow({
@@ -17,9 +18,10 @@ export default function ConfirmWindow({
   handleYes,
   handleNo,
   warning = "This can't be undone",
+  overlay = false,
 }: ConfirmWindowProps) {
   return (
-    <Modal onClose={handleNo}>
+    <Modal onClose={handleNo} overlay={overlay}>
       <div className="flex flex-col w-full max-w-111">
         <h2 className="mobile:text-s32 text-black-900 bg-pink-400 p-4 selection:text-purple-800 selection:bg-white-950">
           {question}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useReducer, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import { useAuthStore } from "@/lib/store/authStore";
@@ -23,27 +23,94 @@ import toast from "react-hot-toast";
 import { normalizeEmail } from "@/lib/utils/strings";
 import { DEFAULT_AVATAR } from "@/types/user";
 
+interface ProfileState {
+  userData: User | null;
+  userName: string;
+  userPassword: string;
+  avatarUrl: string;
+  avatarFile: File | undefined;
+  advancedIsOpen: boolean;
+}
+
+type ProfileAction =
+  | {
+      type: "INITIAL_LOAD";
+      payload: { data: User; username: string; avatar: string };
+    }
+  | { type: "SET_AVATAR_URL"; payload: string }
+  | { type: "SET_AVATAR_FILE"; payload: File }
+  | { type: "SET_USER_NAME"; payload: string }
+  | { type: "SET_USER_PASSWORD"; payload: string }
+  | { type: "TOGGLE_ADVANCED" };
+
+const profileReducer = (
+  state: ProfileState,
+  action: ProfileAction,
+): ProfileState => {
+  switch (action.type) {
+    case "INITIAL_LOAD": {
+      return {
+        ...state,
+        userData: action.payload.data,
+        userName: action.payload.username,
+        avatarUrl: action.payload.avatar,
+      };
+    }
+    case "SET_AVATAR_URL": {
+      return { ...state, avatarUrl: action.payload };
+    }
+    case "SET_AVATAR_FILE": {
+      return { ...state, avatarFile: action.payload };
+    }
+    case "SET_USER_NAME": {
+      return { ...state, userName: action.payload };
+    }
+    case "SET_USER_PASSWORD": {
+      return { ...state, userPassword: action.payload };
+    }
+    case "TOGGLE_ADVANCED": {
+      return { ...state, advancedIsOpen: !state.advancedIsOpen };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default function EditProfilePage() {
   const router = useRouter();
+
   const setUser = useAuthStore((state) => state.setUser);
   const clearIsAuthenticated = useAuthStore(
     (state) => state.clearIsAuthenticated,
   );
-  const [userData, setUserData] = useState<User | null>(null);
-  const [userName, setUserName] = useState<string>("");
-  const [avatar, setAvatar] = useState<string>("");
-  const [avatarFile, setAvatarFile] = useState<File | undefined>(undefined);
-  const [advancedIsOpen, setAdvancedIsOpen] = useState<boolean>(false);
-  const [userPassword, setUserPassword] = useState<string>("");
+
+  const [state, dispatch] = useReducer(profileReducer, {
+    userData: null,
+    userName: "",
+    userPassword: "",
+    avatarUrl: "",
+    avatarFile: undefined,
+    advancedIsOpen: false,
+  });
+  const {
+    avatarUrl,
+    avatarFile,
+    userData,
+    userName,
+    userPassword,
+    advancedIsOpen,
+  } = state;
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const data = await getMe();
 
-        setUserData(data);
-        setUserName(data.username);
-        setAvatar(data.avatar);
+        dispatch({
+          type: "INITIAL_LOAD",
+          payload: { data, username: data.username, avatar: data.avatar },
+        });
       } catch {
         toast("Could not load profile, please try again...");
       }
@@ -57,7 +124,7 @@ export default function EditProfilePage() {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setAvatar(reader.result as string);
+        dispatch({ type: "SET_AVATAR_URL", payload: reader.result as string });
       };
 
       reader.readAsDataURL(avatarFile);
@@ -65,15 +132,15 @@ export default function EditProfilePage() {
   }, [avatarFile]);
 
   const resetAvatar = () => {
-    setAvatar(DEFAULT_AVATAR);
+    dispatch({ type: "SET_AVATAR_URL", payload: DEFAULT_AVATAR });
   };
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserName(event.target.value);
+    dispatch({ type: "SET_USER_NAME", payload: event.target.value });
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserPassword(event.target.value);
+    dispatch({ type: "SET_USER_PASSWORD", payload: event.target.value });
   };
 
   const { mutate, isPending } = useMutation({
@@ -94,7 +161,7 @@ export default function EditProfilePage() {
       toast("Your profile was successfully updated!");
 
       if (userPassword !== "") {
-        setUserPassword("");
+        dispatch({ type: "SET_USER_PASSWORD", payload: "" });
       }
     },
     onError: (error) => {
@@ -114,8 +181,8 @@ export default function EditProfilePage() {
       username: userName,
     };
 
-    if (avatar !== "") {
-      newData.avatar = avatar;
+    if (avatarUrl !== "") {
+      newData.avatar = avatarUrl;
     }
     if (userPassword !== "") {
       newData.password = userPassword;
@@ -189,8 +256,13 @@ export default function EditProfilePage() {
 
       <div className="flex flex-col gap-10 items-center tablet:flex-row tablet:items-start">
         <div className="flex flex-col max-tablet:items-center  gap-2">
-          <UserAvatar imageUrl={avatar} />
-          <EditAvatar setAvatar={setAvatarFile} resetAvatar={resetAvatar} />
+          <UserAvatar imageUrl={avatarUrl} />
+          <EditAvatar
+            setAvatar={(file) =>
+              dispatch({ type: "SET_AVATAR_FILE", payload: file })
+            }
+            resetAvatar={resetAvatar}
+          />
         </div>
 
         <div className="w-full flex flex-col gap-y-5 tablet:max-tablet:flex-row tablet:max-tablet-big:justify-between mb-13 tablet:mb-0">
@@ -214,7 +286,7 @@ export default function EditProfilePage() {
 
           <p
             className="group/advanced mobile:text-s20 hover:text-pink-400 transition-color duration-200 mt-5"
-            onClick={() => setAdvancedIsOpen((v) => !v)}
+            onClick={() => dispatch({ type: "TOGGLE_ADVANCED" })}
           >
             {advancedIsOpen ? <span>{"v "}</span> : <span>{"> "}</span>}
             <span className="border-b transition-all duration-300 group-hover/advanced:border-transparent">

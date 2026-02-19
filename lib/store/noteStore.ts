@@ -39,7 +39,7 @@ interface NoteCountStore {
 export const useNoteCountStore = create<NoteCountStore>()(
   persist(
     (set) => ({
-      LIMIT: 2,
+      LIMIT: 100,
       count: 0,
       setCount: (count) =>
         set(() => ({

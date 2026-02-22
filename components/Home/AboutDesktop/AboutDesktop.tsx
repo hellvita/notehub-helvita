@@ -19,7 +19,7 @@ export default function AboutDesktop({ children }: AboutDesktopProps) {
       <div className="flex flex-col gap-24">
         <div className="w-full h-1"></div>
         <p className="hidden desktop:block max-w-87 text-s24 text-right">
-          The app provides a clean interface for writing, editing, and browsing
+          The app provides a clean interface for writing, editing and browsing
           notes. With support for keyword search and structured organization,
           NoteHub offers a streamlined experience for anyone who values clarity
           and productivity.

@@ -7,7 +7,7 @@ export default function About() {
         one place, whether you are at home or on the go.
       </p>
       <p className="mobile:text-s20 tablet-big:text-s24 tablet:text-right tablet-big:text-left">
-        The app provides a clean interface for writing, editing, and browsing
+        The app provides a clean interface for writing, editing and browsing
         notes. With support for keyword search and structured organization,
         NoteHub offers a streamlined experience for anyone who values clarity
         and productivity.

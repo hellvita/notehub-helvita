@@ -1,6 +1,8 @@
-import { getRandomInt } from "./numbers";
-
 export const normalizeEmail = (email: string): string => {
+  if (!email) {
+    return "";
+  }
+
   const MAX_LENGTH = 14;
   const minLength = Math.max(MAX_LENGTH, 12);
 

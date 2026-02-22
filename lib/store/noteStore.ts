@@ -24,6 +24,42 @@ export const useNoteDraftStore = create<NoteDraftStore>()(
     {
       name: "note-draft",
       partialize: (state) => ({ draft: state.draft }),
-    }
-  )
+    },
+  ),
+);
+
+interface NoteCountStore {
+  readonly LIMIT: number;
+  count: number;
+  setCount: (count: number) => void;
+  increaseNoteAmount: () => void;
+  decreaseNoteAmount: () => void;
+}
+
+export const useNoteCountStore = create<NoteCountStore>()(
+  persist(
+    (set) => ({
+      LIMIT: 100,
+      count: 0,
+      setCount: (count) =>
+        set(() => ({
+          count,
+        })),
+      increaseNoteAmount: () =>
+        set((state) => {
+          if (state.count >= state.LIMIT) return state;
+
+          return { count: state.count + 1 };
+        }),
+      decreaseNoteAmount: () =>
+        set((state) => {
+          if (state.count < 1) return state;
+
+          return { count: state.count - 1 };
+        }),
+    }),
+    {
+      name: "note-count",
+    },
+  ),
 );

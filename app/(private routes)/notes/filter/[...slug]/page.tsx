@@ -4,7 +4,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import { fetchNotes } from "@/lib/api/serverApi";
+import { fetchNotes, getMe } from "@/lib/api/serverApi";
 import NotesClient from "./Notes.client";
 import { NoteTag } from "@/types/note";
 
@@ -47,6 +47,8 @@ export async function generateMetadata({
 export default async function Notes({ params }: NotesProps) {
   const queryClient = new QueryClient();
 
+  const user = await getMe();
+
   const { slug } = await params;
   const tag = slug[0] === "all" ? undefined : slug[0];
 
@@ -57,7 +59,7 @@ export default async function Notes({ params }: NotesProps) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient currentTag={tag} />
+      <NotesClient currentTag={tag} user={user} />
     </HydrationBoundary>
   );
 }

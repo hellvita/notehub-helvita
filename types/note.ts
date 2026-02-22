@@ -26,4 +26,9 @@ export const TAG_TYPES = [
   "Personal",
   "Meeting",
   "Shopping",
+  "Ideas",
+  "Travel",
+  "Finance",
+  "Health",
+  "Important",
 ] as const;

@@ -26,11 +26,11 @@ export default function NoteDetailsClient() {
   if (error || !note) throw error ? error : new Error("Data was not loaded");
 
   return (
-    <div className="grow bg-black-900 p-5 tablet-big:p-10 ">
-      <div className="flex flex-col gap-y-7 tablet:w-135 tablet-big:w-200 mx-auto">
-        <ButtonBack backPath="/notes/filter/all" />
-        <Note note={note} />
+      <div className="grow bg-black-900 p-5 tablet-big:p-10 ">
+        <div className="flex flex-col gap-y-7 tablet:w-135 tablet-big:w-200 mx-auto">
+          <ButtonBack backPath="/notes/filter/all" />
+          <Note note={note} />
+        </div>
       </div>
-    </div>
   );
 }

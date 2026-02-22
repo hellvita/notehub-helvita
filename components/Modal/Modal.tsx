@@ -1,15 +1,19 @@
 "use client";
 
-import { body } from "motion/react-client";
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
   onClose: () => void;
   children: React.ReactNode;
+  overlay?: boolean;
 }
 
-export default function Modal({ onClose, children }: ModalProps) {
+export default function Modal({
+  onClose,
+  children,
+  overlay = false,
+}: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) onClose();
   };
@@ -33,7 +37,7 @@ export default function Modal({ onClose, children }: ModalProps) {
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
-      className="fixed flex items-center justify-center z-100 top-0 left-0 w-full h-full bg-white-950/10 p-10"
+      className={`fixed flex items-center justify-center ${overlay ? "z-200" : "z-100"} top-0 left-0 w-full h-full bg-white-950/10 p-10`}
     >
       {children}
     </div>,

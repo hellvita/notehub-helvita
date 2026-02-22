@@ -1,16 +1,14 @@
-export const dynamic = "force-dynamic";
-
 import { NextResponse } from "next/server";
-import { api } from "../../api";
+import { api } from "../api";
 import { cookies } from "next/headers";
-import { logErrorResponse } from "../../_utils/utils";
+import { logErrorResponse } from "../_utils/utils";
 import { isAxiosError } from "axios";
 
 export async function GET() {
   try {
     const cookieStore = await cookies();
 
-    const res = await api.get("/users/me", {
+    const res = await api("note-draft", {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -36,49 +34,16 @@ export async function GET() {
 export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
+
     const body = await request.json();
 
-    const res = await api.patch("/users/me", body, {
+    const res = await api.patch("note-draft", body, {
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
 
     return NextResponse.json(res.data, { status: res.status });
-  } catch (error) {
-    if (isAxiosError(error)) {
-      logErrorResponse(error.response?.data);
-      return NextResponse.json(
-        { error: error.message, response: error.response?.data },
-        { status: error.status },
-      );
-    }
-    logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 },
-    );
-  }
-}
-
-export async function DELETE() {
-  try {
-    const cookieStore = await cookies();
-
-    await api.delete("/users/me", {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
-
-    cookieStore.delete("accessToken");
-    cookieStore.delete("refreshToken");
-    cookieStore.delete("sessionId");
-
-    return NextResponse.json(
-      { message: "Account deleted successfully" },
-      { status: 200 },
-    );
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

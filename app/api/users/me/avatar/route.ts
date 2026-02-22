@@ -1,27 +1,23 @@
-import { NextResponse } from "next/server";
-import { api } from "../../api";
-import { cookies } from "next/headers";
-import { isAxiosError } from "axios";
-import { logErrorResponse } from "../../_utils/utils";
+export const dynamic = "force-dynamic";
 
-export async function POST() {
+import { NextResponse } from "next/server";
+import { api } from "../../../api";
+import { cookies } from "next/headers";
+import { logErrorResponse } from "../../../_utils/utils";
+import { isAxiosError } from "axios";
+
+export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
+    const formData = await request.formData();
 
-    await api.post("auth/logout", null, {
+    const res = await api.patch("/users/me/avatar", formData, {
       headers: {
         Cookie: cookieStore.toString(),
       },
     });
 
-    cookieStore.delete("accessToken");
-    cookieStore.delete("refreshToken");
-    cookieStore.delete("sessionId");
-
-    return NextResponse.json(
-      { message: "Logged out successfully" },
-      { status: 200 },
-    );
+    return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
       logErrorResponse(error.response?.data);

@@ -29,9 +29,12 @@ interface CheckSessionRequest {
   success: boolean;
 }
 
-interface UpdateRequest {
-  email: string;
-  username: string;
+export interface UpdateRequest {
+  email?: string;
+  username?: string;
+  avatar?: string;
+  password?: string;
+  notesAmount?: number;
 }
 
 export const register = async (userData: RegisterRequest): Promise<User> => {
@@ -56,10 +59,22 @@ export const updateMe = async (userData: UpdateRequest): Promise<User> => {
   return data;
 };
 
+export const updateAvatar = async (userData: FormData): Promise<string> => {
+  const { data } = await nextServer.patch<string>("/users/me/avatar", userData);
+
+  return data;
+};
+
 export const checkSession = async (): Promise<boolean> => {
   const { data } = await nextServer.get<CheckSessionRequest>("/auth/session");
 
   return data.success;
+};
+
+export const deleteMe = async () => {
+  const { data } = await nextServer.delete("/users/me");
+
+  return data;
 };
 
 export const getMe = async (): Promise<User> => {
@@ -102,11 +117,11 @@ export const createNote = async (note: NewNote): Promise<Note> => {
 };
 
 export const updateNoteById = async (
-  updatedNote: UpdatedNote
+  updatedNote: UpdatedNote,
 ): Promise<Note> => {
   const { data } = await nextServer.patch<Note>(
     `/notes/${updatedNote.id}`,
-    updatedNote.body
+    updatedNote.body,
   );
 
   return data;
@@ -114,6 +129,18 @@ export const updateNoteById = async (
 
 export const deleteNote = async (id: string): Promise<Note> => {
   const { data } = await nextServer.delete<Note>(`/notes/${id}`);
+
+  return data;
+};
+
+export const fetchDraft = async (): Promise<Note> => {
+  const { data } = await nextServer.get<Note>("note-draft");
+
+  return data;
+};
+
+export const updateDraft = async (draftNote: NewNote): Promise<Note> => {
+  const { data } = await nextServer.patch<Note>("note-draft", draftNote);
 
   return data;
 };

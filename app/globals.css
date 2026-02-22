@@ -32,6 +32,8 @@
   /* better without shadow */
   --text-shadow-logo: 0 0 4px --alpha(var(--color-white-950) / 60%);
 
+  --color-black-400: #3f3f3f;
+  --color-black-700: #212121;
   --color-black-800: #181818;
   --color-black-900: #131313;
   --color-black-950: #000;
